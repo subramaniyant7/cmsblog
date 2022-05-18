@@ -1,0 +1,28 @@
+.custom .content{
+    padding-top: 2em !important;
+    background: #fff;
+}
+
+.custom.content-wrapper{
+    background: #fff;
+}
+
+.custom .card-footer{
+    background: none;
+    text-align: center;
+}
+
+.custom .card-footer button:first-child{
+    margin-right: 2em;
+}
+.custom .card{
+    box-shadow: unset;
+}
+
+.label-success{
+    color: #28a745
+}
+
+.label-danger{
+    color: #dc3545
+}
