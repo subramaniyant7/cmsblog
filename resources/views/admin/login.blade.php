@@ -15,6 +15,9 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
+        <img src="{{ URL::asset(FRONTENDURL.ADMIN.'/images/logo.png') }}" alt="GoHealthe Logo" class="brand-image elevation-3"
+            style="margin-bottom:1em;">
+            <br>
             <a href="{{ url(ADMINURL) }}"><b>Login</b></a>
         </div>
         @include('admin.notification')
