@@ -62,7 +62,7 @@
                                     <div class="form-group row">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Client Category</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" name="client_category" required>
+                                            <select class="custom-select form-control-border" name="client_category" required>
                                                 <option value="">select</option>
                                                 @foreach (getActiveRecord('category_details') as $category)
                                                     <option value="{{ $category->category_id }}"

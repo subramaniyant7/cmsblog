@@ -14,7 +14,7 @@ class HelperController extends Controller
     {
         return DB::table("admin_details")
             ->select("admin_details.*", DB::raw("(SELECT admin_name FROM admin_details as t WHERE admin_details.admin_created_by = t.admin_id) as created_name"))
-            ->where([['admin_id', '!=', Session::get('admin_id')], ['admin_name', '!=', 'root']])
+            ->where([['admin_id', '!=', Session::get('admin_id')], ['admin_id', '!=', 1]])
             ->get();
     }
 
@@ -46,6 +46,33 @@ class HelperController extends Controller
             $data->where('client_details.client_id', $id);
         }
         return $data->orderBy('client_id', 'desc')->get();
+    }
+
+    static function getClientByCategory($id)
+    {
+        $data =  DB::table("client_details")->where([['client_category', $id],['status', 1]]);
+        return $data->orderBy('client_id', 'desc')->get();
+    }
+
+
+    static function checkImageExistByRow($galleryId,$id)
+    {
+        return DB::table("clients_gallery_images")->where([['clients_gallery_images_galleryid', $galleryId],['clients_gallery_images_row', $id]])->get();
+    }
+
+    static function checkImageExistByGallery($id)
+    {
+        return DB::table("clients_gallery_images")->where('clients_gallery_images_galleryid', $id)->get();
+    }
+
+    static function checkVideoExistByRow($videoId,$id)
+    {
+        return DB::table("clients_gallery_videos")->where([['clients_gallery_videos_galleryid', $videoId],['clients_gallery_videos_row', $id]])->get();
+    }
+
+    static function checkVideoExistByGallery($id)
+    {
+        return DB::table("clients_gallery_videos")->where('clients_gallery_videos_galleryid', $id)->get();
     }
 
     static function getSubCategories($id = '')

@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Create Admin</h1>
+                        <h1>Action Admin</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Create Admin</li>
+                            <li class="breadcrumb-item active">Action Admin</li>
                         </ol>
                     </div>
                 </div>
@@ -31,20 +31,34 @@
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">Admin Name</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="inputEmail3" placeholder="Name"
+                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email"
                                                 name="admin_name" required
                                                 value="{{ isset($action) && $action == 'edit' ? $data[0]->admin_name : old('admin_name') }}">
                                         </div>
                                     </div>
+
+                                    @if(isset($action) && $action == 'edit')
+                                    <div class="form-group row">
+                                        <label  class="col-sm-3 col-form-label">Admin Password</label>
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control" placeholder="Password"
+                                                name="admin_password" 
+                                                value="">
+                                        </div>
+                                    </div>
+                                    @endif
+
                                     <div class="form-group row">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Admin Role</label>
                                         <div class="col-sm-9">
                                             <select class="form-control" name="admin_role" required>
-                                                <option value="">select</option>
+                                                <option value="">Select</option>
                                                 @foreach (admintype() as $k => $admin)
-                                                    <option value="{{ $k + 1 }}"
-                                                        {{ isset($action) && $action == 'edit' && $data[0]->admin_role == $k + 1 ? 'selected' : '' }}>
-                                                        {{ $admin }}</option>
+                                                    @if($k>0)
+                                                        <option value="{{ $k }}"
+                                                            {{ isset($action) && $action == 'edit' && $data[0]->admin_role == $k ? 'selected' : '' }}>
+                                                            {{ $admin }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>

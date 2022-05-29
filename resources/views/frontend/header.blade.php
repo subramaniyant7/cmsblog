@@ -15,10 +15,10 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-4">
                         <ul class="header-top-social">
-                            <li><a href="#" class="social"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" class="social"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" class="social"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#" class="social"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="https://www.facebook.com/gohealthe/" class="social" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <!-- <li><a href="#" class="social"><i class="fa fa-twitter"></i></a></li> -->
+                            <li><a href="https://www.linkedin.com/company/gohealthe/" class="social" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="https://www.instagram.com/gohealthe" class="social" target="_blank"><i class="fa fa-instagram"></i></a></li>
                         </ul>
                     </div>
                 </div>

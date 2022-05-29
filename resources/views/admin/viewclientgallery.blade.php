@@ -55,7 +55,7 @@
                                                 <td>{{ $gallery->clients_gallery_location }}</td>
                                                 <td>{{ $gallery->clients_gallery_budget }}</td>
                                                 <td>{{ $gallery->created_name }}</td>
-                                                <td>{{ statustype()[$category->status - 1] }}</td>
+                                                <td>{{ statustype()[$gallery->status - 1] }}</td>
                                                 <td>
                                                     <a
                                                         href="{{ url(ADMINURL . '/actionclientgallery/edit/' . encryption($gallery->clients_gallery_id)) }}">

@@ -24,22 +24,26 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
+                                @if (session('admin_id') == 1)
                                 <div class="col-md-2 float-right">
                                     <a href="{{ url(ADMINURL . '/manageadmin') }}" class="btn btn-block btn-primary">
                                         <i class="nav-icon fas fa-plus"></i> Create
                                     </a>
                                 </div>
+                                @endif
                             </div>
                             <div class="card-body">
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>S.No</th>
-                                            <th>Admin Name</th>
+                                            <th>Admin Email</th>
                                             <th>Admin Role</th>
                                             <th>Created By</th>
                                             <th>Status</th>
+                                            @if (session('admin_id') == 1)
                                             <th>Action</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -47,9 +51,10 @@
                                             <tr>
                                                 <td>{{ $k+1 }}</td>
                                                 <td>{{ $admin->admin_name }}</td>
-                                                <td>{{ admintype()[$admin->admin_role - 1] }}</td>
+                                                <td>{{ admintype()[$admin->admin_role] }}</td>
                                                 <td>{{ $admin->created_name }}</td>
                                                 <td>{{ statustype()[$admin->status - 1] }}</td>
+                                                @if (session('admin_id') == 1)
                                                 <td>
                                                     <a
                                                         href="{{ url(ADMINURL . '/actionadmin/edit/' . encryption($admin->admin_id)) }}">
@@ -60,10 +65,11 @@
                                                         <i class="nav-icon fas fa-trash"></i>
                                                     </a>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="4" style="text-align: center">No Record Found</td>
+                                                <td colspan="5" style="text-align: center">No Record Found</td>
                                             </tr>
                                         @endforelse
 

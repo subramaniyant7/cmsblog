@@ -26,6 +26,34 @@ class AdminController extends Controller
         return back()->withInput()->with('error', 'Invalid Credentials');
     }
 
+    public function MyProfilePassword(Request $req){
+        $adminId = $req->session()->get('admin_id');
+        return view('admin.actionchangepassword', ['admin_id' => encryption($adminId)]);
+    }
+
+    public function MyProfilePasswordUpdate(Request $req){
+        $adminId = $req->session()->get('admin_id');
+        $formData =  $req->only(['old_password','new_password','confirm_password']);
+        if($formData['old_password'] == '' || $formData['new_password'] == '' || $formData['confirm_password'] == ''){
+            return back()->with('error', 'Please Enter All fields');
+        }
+
+        if($formData['new_password'] != $formData['confirm_password']){
+            return back()->with('error','New Password and Confirm Password not matched');
+        }
+
+        $isValidUser = DB::table('admin_details')->where('admin_id', $adminId)->get();
+        if(count($isValidUser)){
+            if($isValidUser[0]->admin_password != md5($formData['old_password'])){
+                return back()->with('error','Old Password not matched');
+            }
+           
+            $update = updateQuery('admin_details','admin_id',$isValidUser[0]->admin_id,['admin_password' => md5($formData['new_password'])]);
+            return redirect(ADMINURL.'/logout');
+            return back()->with('success', 'Password Updated Successfully');
+        }
+    }
+
     public function Dashboard(Request $req)
     {
         return view('admin.dashboard');
@@ -62,11 +90,17 @@ class AdminController extends Controller
         $formData =  $req->except(['_token', 'admin_id']);
         if ($req->input('admin_id') == '') {
             $formData['admin_password'] = md5('root@123');
-            $formData['admin_created_by'] =  1;
             $formData['admin_created_by'] =  $req->session()->get('admin_id');
             $saveData = insertQuery('admin_details', $formData);
         } else {
-            $saveData = updateQuery('admin_details', 'admin_id', decryption($req->input('admin_id')), $formData);
+            $actionId = decryption($req->input('admin_id'));
+            if($req->input('admin_password') !=''){
+                $formData['admin_password'] = md5($req->input('admin_password'));
+            }else{
+                $adminData = HelperController::getAdminDetails($actionId);
+                $formData['admin_password'] = $adminData[0]->admin_password;
+            }
+            $saveData = updateQuery('admin_details', 'admin_id', $actionId, $formData);
         }
         $notify = notification($saveData);
         return redirect(ADMINURL . '/viewadmin')->with($notify['type'], $notify['msg']);
@@ -218,7 +252,8 @@ class AdminController extends Controller
     }
 
     // Client Gallery Actions
-    public function ViewClientGallery(){
+    public function ViewClientGallery()
+    {
         $clientGallery = HelperController::getClientGallery();
         return view('admin.viewclientgallery', compact('clientGallery'));
     }
@@ -235,6 +270,8 @@ class AdminController extends Controller
         if (count($clientGalleryData) == 0) return redirect(ADMINURL . '/viewclientgallery');
 
         if ($option == 'delete') {
+            $imageDelete = deleteQuery($actionId, 'clients_gallery_images', 'clients_gallery_images_galleryid');
+            $videoDelete = deleteQuery($actionId, 'clients_gallery_videos', 'clients_gallery_videos_galleryid');
             $delete = deleteQuery($actionId, 'clients_gallery', 'clients_gallery_id');
             $notify = notification($delete);
             return redirect(ADMINURL . '/viewclientgallery')->with($notify['type'], 'Data Deleted Successfully');
@@ -245,17 +282,78 @@ class AdminController extends Controller
 
     public function SaveClientGalleryDetails(Request $req)
     {
-        $formData =  $req->except(['_token', 'clients_gallery_id']);
+        $formData =  $req->except(['_token', 'clients_gallery_id', 'clients_gallery_images_name', 'clients_gallery_videos_name']);
+        // echo '<pre>';
+        // print_r($formData);
+        // print_r($req->file('clients_gallery_images_name'));
+        // print_r($req->input('clients_gallery_videos_name'));
+        // exit;
+
+        if($formData['clients_gallery_client'] == '' || $formData['clients_gallery_category'] == '' || $formData['clients_gallery_date'] =='' ||
+            $formData['clients_gallery_location'] =='' || $formData['clients_gallery_budget'] =='' || $formData['clients_gallery_description'] =='' ){
+            return back()->with('error', 'Please enter all mandatory fields');
+        }
 
         if ($req->input('clients_gallery_id') == '') {
+            if (!$req->hasFile('clients_gallery_images_name')) {
+                return back()->with('error', 'Please upload images');
+            }
             $formData['clients_gallery_created_by'] =  $req->session()->get('admin_id');
             $saveData = insertQueryId('clients_gallery', $formData);
+            $galleryId = $saveData;
         } else {
-            $saveData = updateQuery('clients_gallery', 'clients_gallery_id', decryption($req->input('clients_gallery_id')), $formData);
+            $galleryId = decryption($req->input('clients_gallery_id'));
+            $saveData = updateQuery('clients_gallery', 'clients_gallery_id', $galleryId, $formData);
         }
+
+        if ($galleryId != '') {
+            if ($req->hasFile('clients_gallery_images_name')) {
+                $files = $req->file('clients_gallery_images_name');
+                foreach ($files as $l => $file){
+                    $location = public_path('uploads/client/gallery');
+                    $destinationPath = 'uploads/client/gallery';
+                    $fileName = $file->getClientOriginalName();
+                    $file->move($location, $fileName);
+                    $rowExist = HelperController::checkImageExistByRow($galleryId,$l+1);
+                    $imageData = ['clients_gallery_images_galleryid' => $galleryId, 'clients_gallery_images_row' => $l+1, 'clients_gallery_images_name' => $fileName];
+                    if (count($rowExist)) {
+                        $imageAction = DB::table('clients_gallery_images')
+                                        ->where([['clients_gallery_images_id',$rowExist[0]->clients_gallery_images_id],
+                                        ['clients_gallery_images_galleryid',$galleryId], ['clients_gallery_images_row',(int)$l+1],
+                                        ])->update($imageData);
+                    } else {
+                        $imageAction = insertQuery('clients_gallery_images', $imageData);
+                    }
+                }
+                
+            }
+
+
+            $videos = $req->input('clients_gallery_videos_name');
+            foreach ($videos as $k => $video){
+                if($video != ''){
+                    $videorowExist = HelperController::checkVideoExistByRow($galleryId,$k+1);
+                    $videoData = ['clients_gallery_videos_galleryid' => $galleryId, 'clients_gallery_videos_row' => $k+1, 'clients_gallery_videos_name' => $video];
+                    if (count($videorowExist)) {
+                        $videoAction = DB::table('clients_gallery_videos')
+                                        ->where([['clients_gallery_videos_id',$videorowExist[0]->clients_gallery_videos_id],['clients_gallery_videos_galleryid',$galleryId],
+                                        ['clients_gallery_videos_row',(int)$k+1]])->update($videoData);
+                    } else {
+                        $videoAction = insertQuery('clients_gallery_videos', $videoData);
+                    }
+                }
+            }
+        
+        }
+
         $notify = notification($saveData);
         return redirect(ADMINURL . '/viewclientgallery')->with($notify['type'], $notify['msg']);
     }
+
+
+
+
+
 
     public function AdminLogout(Request $req)
     {

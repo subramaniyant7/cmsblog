@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Crypt;
 
 function admintype(){
-    return array('Root Admin','Super Admin','Sub Admin');
+    return array('Primary Admin','Super Admin','Sub Admin');
 }
 
 function statustype(){
@@ -75,6 +75,16 @@ function notification($type= false){
         return ['type'=>'success','msg'=>'Data Saved Succesfully'];
     }
     return ['type'=>'error','msg'=>'Something went wrong... please try again'];
+}
+
+function checkImageExistByGallery($id)
+{
+    return DB::table("clients_gallery_images")->where('clients_gallery_images_galleryid', $id)->get();
+}
+
+function checkVideoExistByGallery($id)
+{
+    return DB::table("clients_gallery_videos")->where('clients_gallery_videos_galleryid', $id)->get();
 }
 
 

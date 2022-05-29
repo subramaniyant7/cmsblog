@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\AjaxController;
 use App\Http\Controllers\frontend\FrontendController;
 
 /*
@@ -28,6 +29,8 @@ Route::prefix(ADMINURL)->group(function () {
     });
 
     Route::get('/dashboard', [AdminController::class, 'Dashboard'])->name('dashboard');
+    Route::get('/change_password', [AdminController::class, 'MyProfilePassword']);
+    Route::post('/update_password', [AdminController::class, 'MyProfilePasswordUpdate']);
 
     Route::get('/viewadmin', [AdminController::class, 'ViewAdmin'])->name('viewadmin');
     Route::get('/manageadmin', [AdminController::class, 'ManageAdmin'])->name('manageadmin');
@@ -54,6 +57,9 @@ Route::prefix(ADMINURL)->group(function () {
     Route::get('/actionclientgallery/{option}/{id}', [AdminController::class, 'ActionClientGallery']);
     Route::post('/saveclientgallerydetails', [AdminController::class, 'SaveClientGalleryDetails']);
 
+
+    // Ajax
+    Route::post('/getClientCategory', [AjaxController::class, 'GetClientCategory']);
 
     Route::get('/logout', [AdminController::class, 'AdminLogout']);
 });
