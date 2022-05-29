@@ -16,7 +16,8 @@ use App\Http\Controllers\frontend\FrontendController;
 |
 */
 
-Route::get('/', function () { return view('frontend.home');});
+Route::get('/', function () { return view('welcome');});
+Route::get('/home', function () { return view('frontend.home');});
 Route::get('/profile', [FrontendController::class, 'Profile']);
 Route::get('/faq', [FrontendController::class, 'Faq']);
 
