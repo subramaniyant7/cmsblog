@@ -31,7 +31,7 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">Client Name <span class="label-danger">*</span></label>
                                     <div class="col-sm-6">
-                                        <select class="form-control" name="" required>
+                                        <select class="custom-select form-control" name="" required>
                                             <option value="">select</option>
                                             @foreach (getActiveRecord('client_details') as $client)
                                             <option value="{{ $client->client_id }}">{{ $client->client_name }}</option>
@@ -43,7 +43,7 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">Category Name <span class="label-danger">*</span></label>
                                     <div class="col-sm-6">
-                                        <select class="form-control" name="" required>
+                                        <select class="custom-select form-control" name="" required>
                                             <option value="">select</option>
 
                                         </select>
@@ -53,7 +53,7 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">Sub-Category Name </label>
                                     <div class="col-sm-6">
-                                        <select class="form-control" name="">
+                                        <select class="custom-select form-control" name="">
                                             <option value="">select</option>
 
                                         </select>
@@ -87,9 +87,6 @@
                                         <input type="text" class="form-control" id="inputEmail3" name="client_name" required value="{{ isset($action) && $action == 'edit' ? $data[0]->client_name : old('client_name') }}">
                                     </div>
                                 </div>
-
-
-
                             </div>
                             <input type="hidden" class="form-control mb-10" name="clients_gallery_id" value="{{ isset($action) && $action == 'edit' ? encryption($data[0]->clients_gallery_id) : '' }}">
                             <div class="card-footer">
