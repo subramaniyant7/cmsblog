@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ URL::asset(FRONTENDURL.ADMINCSS.'/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset(FRONTENDURL.ADMINCSS.'/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset(FRONTENDURL.ADMINCSS.'/custom.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset(FRONTENDURL.ADMINCSS.'/select2.min.css') }}">
     <script src="{{ URL::asset(FRONTENDURL . ADMIN . '/jquery/jquery.min.js') }}"></script>
     <script src="{{ URL::asset(FRONTENDURL . ADMIN . '/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script>

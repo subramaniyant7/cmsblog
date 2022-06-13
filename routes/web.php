@@ -19,6 +19,8 @@ use App\Http\Controllers\frontend\FrontendController;
 Route::get('/', function () { return view('welcome');});
 Route::get('/home', function () { return view('frontend.home');});
 Route::get('/profile', [FrontendController::class, 'Profile']);
+Route::get('/gallery', [FrontendController::class, 'Gallery']);
+Route::get('/gallerydetails/{id}', [FrontendController::class, 'GalleryDetails']);
 Route::get('/faq', [FrontendController::class, 'Faq']);
 
 
@@ -59,6 +61,9 @@ Route::prefix(ADMINURL)->group(function () {
     Route::post('/saveclientgallerydetails', [AdminController::class, 'SaveClientGalleryDetails']);
 
 
+    Route::get('/actionpageinfo', [AdminController::class, 'ActionPageInfo']);
+    Route::post('/savepageinfo', [AdminController::class, 'SavePageInfo']);
+    
     // Ajax
     Route::post('/getClientCategory', [AjaxController::class, 'GetClientCategory']);
 

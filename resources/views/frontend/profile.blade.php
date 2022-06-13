@@ -3,8 +3,10 @@
 @section('content')
 
 
+{!! $profilePage[0]->page_content !!}
+
 <!-- Start Welcome Area -->
-<section class="welcome-area ptb-80">
+<!-- <section class="welcome-area ptb-80">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-12">
@@ -42,7 +44,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 
 <!-- Start Fun Fact Area -->

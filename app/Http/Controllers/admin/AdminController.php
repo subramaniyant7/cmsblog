@@ -26,30 +26,32 @@ class AdminController extends Controller
         return back()->withInput()->with('error', 'Invalid Credentials');
     }
 
-    public function MyProfilePassword(Request $req){
+    public function MyProfilePassword(Request $req)
+    {
         $adminId = $req->session()->get('admin_id');
         return view('admin.actionchangepassword', ['admin_id' => encryption($adminId)]);
     }
 
-    public function MyProfilePasswordUpdate(Request $req){
+    public function MyProfilePasswordUpdate(Request $req)
+    {
         $adminId = $req->session()->get('admin_id');
-        $formData =  $req->only(['old_password','new_password','confirm_password']);
-        if($formData['old_password'] == '' || $formData['new_password'] == '' || $formData['confirm_password'] == ''){
+        $formData =  $req->only(['old_password', 'new_password', 'confirm_password']);
+        if ($formData['old_password'] == '' || $formData['new_password'] == '' || $formData['confirm_password'] == '') {
             return back()->with('error', 'Please Enter All fields');
         }
 
-        if($formData['new_password'] != $formData['confirm_password']){
-            return back()->with('error','New Password and Confirm Password not matched');
+        if ($formData['new_password'] != $formData['confirm_password']) {
+            return back()->with('error', 'New Password and Confirm Password not matched');
         }
 
         $isValidUser = DB::table('admin_details')->where('admin_id', $adminId)->get();
-        if(count($isValidUser)){
-            if($isValidUser[0]->admin_password != md5($formData['old_password'])){
-                return back()->with('error','Old Password not matched');
+        if (count($isValidUser)) {
+            if ($isValidUser[0]->admin_password != md5($formData['old_password'])) {
+                return back()->with('error', 'Old Password not matched');
             }
-           
-            $update = updateQuery('admin_details','admin_id',$isValidUser[0]->admin_id,['admin_password' => md5($formData['new_password'])]);
-            return redirect(ADMINURL.'/logout');
+
+            $update = updateQuery('admin_details', 'admin_id', $isValidUser[0]->admin_id, ['admin_password' => md5($formData['new_password'])]);
+            return redirect(ADMINURL . '/logout');
             return back()->with('success', 'Password Updated Successfully');
         }
     }
@@ -94,9 +96,9 @@ class AdminController extends Controller
             $saveData = insertQuery('admin_details', $formData);
         } else {
             $actionId = decryption($req->input('admin_id'));
-            if($req->input('admin_password') !=''){
+            if ($req->input('admin_password') != '') {
                 $formData['admin_password'] = md5($req->input('admin_password'));
-            }else{
+            } else {
                 $adminData = HelperController::getAdminDetails($actionId);
                 $formData['admin_password'] = $adminData[0]->admin_password;
             }
@@ -182,7 +184,7 @@ class AdminController extends Controller
 
         if ($req->hasFile('client_logo')) {
             $file = $req->file('client_logo');
-            $destinationPath = 'admin/uploads/clients';
+            $destinationPath = 'uploads/clients';
             $fileName = $file->getClientOriginalName();
             $fileExtension = explode('.', $fileName);
 
@@ -283,15 +285,24 @@ class AdminController extends Controller
     public function SaveClientGalleryDetails(Request $req)
     {
         $formData =  $req->except(['_token', 'clients_gallery_id', 'clients_gallery_images_name', 'clients_gallery_videos_name']);
-        // echo '<pre>';
-        // print_r($formData);
-        // print_r($req->file('clients_gallery_images_name'));
-        // print_r($req->input('clients_gallery_videos_name'));
-        // exit;
 
-        if($formData['clients_gallery_client'] == '' || $formData['clients_gallery_category'] == '' || $formData['clients_gallery_date'] =='' ||
-            $formData['clients_gallery_location'] =='' || $formData['clients_gallery_budget'] =='' || $formData['clients_gallery_description'] =='' ){
+        if (
+            $formData['clients_gallery_client'] == '' || $formData['clients_gallery_category'] == '' || $formData['clients_gallery_date'] == '' ||
+            $formData['clients_gallery_location'] == '' || $formData['clients_gallery_budget'] == '' || $formData['clients_gallery_description'] == ''
+        ) {
             return back()->with('error', 'Please enter all mandatory fields');
+        }
+
+        $clientExist = HelperController::getClientGalleryByClientId($formData['clients_gallery_client']);
+        if(count($clientExist)) return back()->with('error', 'Client Already exist.Please select other client');
+
+        if(($req->input('clients_gallery_subcategory')) && count($req->input('clients_gallery_subcategory'))){
+            $formData['clients_gallery_subcategory'] = json_encode($req->input('clients_gallery_subcategory'));
+        }
+
+
+        if(!array_key_exists('clients_gallery_subcategory', $req->input()) || $formData['clients_gallery_category'] != 1){
+            $formData['clients_gallery_subcategory'] = json_encode([]);
         }
 
         if ($req->input('clients_gallery_id') == '') {
@@ -309,41 +320,45 @@ class AdminController extends Controller
         if ($galleryId != '') {
             if ($req->hasFile('clients_gallery_images_name')) {
                 $files = $req->file('clients_gallery_images_name');
-                foreach ($files as $l => $file){
-                    $location = public_path('uploads/client/gallery');
-                    $destinationPath = 'uploads/client/gallery';
+                foreach ($files as $l => $file) {
+                    $location = public_path('uploads/clients/gallery');
+                    $destinationPath = 'uploads/clients/gallery';
                     $fileName = $file->getClientOriginalName();
                     $file->move($location, $fileName);
-                    $rowExist = HelperController::checkImageExistByRow($galleryId,$l+1);
-                    $imageData = ['clients_gallery_images_galleryid' => $galleryId, 'clients_gallery_images_row' => $l+1, 'clients_gallery_images_name' => $fileName];
+                    $rowExist = HelperController::checkImageExistByRow($galleryId, $l + 1);
+                    $imageData = ['clients_gallery_images_galleryid' => $galleryId, 'clients_gallery_images_row' => $l + 1, 'clients_gallery_images_name' => $fileName];
                     if (count($rowExist)) {
                         $imageAction = DB::table('clients_gallery_images')
-                                        ->where([['clients_gallery_images_id',$rowExist[0]->clients_gallery_images_id],
-                                        ['clients_gallery_images_galleryid',$galleryId], ['clients_gallery_images_row',(int)$l+1],
-                                        ])->update($imageData);
+                            ->where([
+                                ['clients_gallery_images_id', $rowExist[0]->clients_gallery_images_id],
+                                ['clients_gallery_images_galleryid', $galleryId], ['clients_gallery_images_row', (int)$l + 1],
+                            ])->update($imageData);
                     } else {
                         $imageAction = insertQuery('clients_gallery_images', $imageData);
                     }
                 }
-                
             }
 
-
             $videos = $req->input('clients_gallery_videos_name');
-            foreach ($videos as $k => $video){
-                if($video != ''){
-                    $videorowExist = HelperController::checkVideoExistByRow($galleryId,$k+1);
-                    $videoData = ['clients_gallery_videos_galleryid' => $galleryId, 'clients_gallery_videos_row' => $k+1, 'clients_gallery_videos_name' => $video];
+
+            foreach ($videos as $k => $video) {
+                if($video == ''){
+                    $deleteRow = DB::table('clients_gallery_videos')->where(['clients_gallery_videos_galleryid' =>$galleryId, 'clients_gallery_videos_row'=> $k+1])->delete();
+                }
+                if ($video != '') {
+                    $videorowExist = HelperController::checkVideoExistByRow($galleryId, $k + 1);
+                    $videoData = ['clients_gallery_videos_galleryid' => $galleryId, 'clients_gallery_videos_row' => $k + 1, 'clients_gallery_videos_name' => $video];
                     if (count($videorowExist)) {
                         $videoAction = DB::table('clients_gallery_videos')
-                                        ->where([['clients_gallery_videos_id',$videorowExist[0]->clients_gallery_videos_id],['clients_gallery_videos_galleryid',$galleryId],
-                                        ['clients_gallery_videos_row',(int)$k+1]])->update($videoData);
+                            ->where([
+                                ['clients_gallery_videos_id', $videorowExist[0]->clients_gallery_videos_id], ['clients_gallery_videos_galleryid', $galleryId],
+                                ['clients_gallery_videos_row', (int)$k + 1]
+                            ])->update($videoData);
                     } else {
                         $videoAction = insertQuery('clients_gallery_videos', $videoData);
                     }
                 }
             }
-        
         }
 
         $notify = notification($saveData);
@@ -351,6 +366,51 @@ class AdminController extends Controller
     }
 
 
+    public function ActionPageInfo(Request $req)
+    {
+        $type = '';
+        try{
+            $type = decryption($req->input('type'));
+        }catch(\Exception $e){
+            return redirect(ADMINURL.'/dashboard');
+        }
+        if($type == '') return redirect(ADMINURL.'/dashboard');
+        $viewHtml = $this->getPageView($type);
+        if($viewHtml == '') return redirect(ADMINURL.'/dashboard');
+        return $viewHtml;
+    }
+
+    private function getProfile(){
+        $profilePage = HelperController::getPageByName('profile');
+        return view('admin.pages.profile', compact('profilePage'));
+    }
+
+    private function getPageView($type){
+        $viewHtml = '';
+        switch($type){
+            case 'profile':
+                $viewHtml = $this->getProfile();
+                break;
+            default:
+                break;
+        }
+        return $viewHtml;
+    }
+
+    public function SavePageInfo(Request $req)
+    {
+        if($req->input('page_content') == '') return back()->with('error', 'Please Enter Page Content');
+        $formData = $req->only('page_content');
+        $formData['page_name'] = decryption($req->input('page_name'));
+        if ($req->input('page_id') == '') {
+            $saveData = insertQueryId('pages', $formData);
+        } else {
+            $pageId = decryption($req->input('page_id'));
+            $saveData = updateQuery('pages', 'page_id', $pageId, $formData);
+        }
+        $notify = notification($saveData);
+        return back()->with($notify['type'], $notify['msg']);
+    }
 
 
 

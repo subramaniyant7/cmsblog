@@ -52,6 +52,8 @@ function insertQueryId($table,$data){
     try{
         return DB::table($table)->insertGetId($data);
     }catch(Exception $e){
+        print_r($e->getMessage());
+        exit;
         return false;
     }
 }
@@ -85,6 +87,10 @@ function checkImageExistByGallery($id)
 function checkVideoExistByGallery($id)
 {
     return DB::table("clients_gallery_videos")->where('clients_gallery_videos_galleryid', $id)->get();
+}
+
+function getSubCategoryById($id){
+    return DB::table('sub_category')->where('sub_category_id', $id)->get();
 }
 
 

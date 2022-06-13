@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 
 class HelperController extends Controller
@@ -96,5 +94,38 @@ class HelperController extends Controller
             ->select("clients_gallery.*",'client_details.client_name','category_details.category_name','sub_category.sub_category_name','admin_details.admin_name as created_name');
         if ($id != '') $data->where('clients_gallery_id', $id);
         return $data->orderBy('clients_gallery_id', 'desc')->get();
+    }
+
+    static function getClientGalleryByClientId($clietId){
+        return DB::table("clients_gallery")->where('clients_gallery_client', $clietId)->get();
+    }
+
+    static function getClientVideos($id = '')
+    {
+        $data =  DB::table("clients_gallery_videos")->where('status', 1);
+        if($id !=''){
+            $data->where('clients_gallery_videos_id', $id);
+        }
+        return $data->orderBy('clients_gallery_videos_id', 'desc')->get();
+    }
+
+    static function getClientVideoByGalleryId($galleryId)
+    {
+        return DB::table("clients_gallery_videos")->where('clients_gallery_videos_galleryid', $galleryId)->get();
+    }
+
+    static function getAllPages($id = '')
+    {
+        $data =  DB::table("pages")->where('status', 1);
+        if($id !=''){
+            $data->where('page_id', $id);
+        }
+        return $data->orderBy('page_id', 'desc')->get();
+    }
+
+    static function getPageByName($name)
+    {
+        $data =  DB::table("pages")->where([['page_name', $name],['status', 1]]);
+        return $data->orderBy('page_id', 'desc')->get();
     }
 }

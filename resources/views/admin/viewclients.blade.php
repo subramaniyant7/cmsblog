@@ -52,7 +52,7 @@
                                             <tr>
                                                 <td>{{ $k+1 }}</td>
                                                 <td>{{ $client->client_name }}</td>
-                                                <td><img style="height: 100px;" src="{{ URL::asset(ADMINUPLOAD.'/clients/'.$client->client_logo)}}"></td>
+                                                <td><img style="height: 100px;" src="{{ URL::asset('uploads/clients/'.$client->client_logo)}}"></td>
                                                 <td>{{ $client->category_name }}</td>
                                                 <td>{{ $client->created_name }}</td>
                                                 <td><span class="label {{ $stClass}}">{{ statustype()[$client->status - 1] }}</span></td>

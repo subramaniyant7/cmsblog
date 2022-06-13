@@ -16,7 +16,9 @@
             <script src="{{ URL::asset(FRONTENDURL . ADMINJS . '/dashboard3.js') }}"></script>
             <script src="{{ URL::asset(FRONTENDURL . ADMINJS . '/toastr.min.js') }}"></script>
             <script src="{{ URL::asset(FRONTENDURL . ADMINJS . '/summernote-bs4.min.js') }}"></script>
+            <script src="{{ URL::asset(FRONTENDURL . ADMINJS . '/select2.full.min.js') }}"></script>
             <script src="{{ URL::asset(FRONTENDURL . ADMINJS . '/custom.js') }}"></script>
+            
         </body>
 
     </html>

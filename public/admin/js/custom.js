@@ -7,7 +7,7 @@ let url = window.location.pathname;
 
 const getCategoryClient = (clientid) => {
     let data = { client_id: clientid };
-    let clientId = $('#clients_gallery_category').val();
+    let clientId = $('#clients_gallery_client').val();
     toastr.clear();
     $.post(container + "/getClientCategory", data, function (response) {
         let option = '<option value="">Select</option>';
@@ -22,6 +22,12 @@ const getCategoryClient = (clientid) => {
             }
         } else {
             toastr.error("Something went wrong. Please try again");
+        }
+        console.log('clientid',clientid)
+        if(clientid == 1){
+            $('.sub_category').show();
+        }else{
+            $('.sub_category').hide();
         }
         $("select[name=clients_gallery_client]").html(option);
     });
