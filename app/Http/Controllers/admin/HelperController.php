@@ -128,4 +128,33 @@ class HelperController extends Controller
         $data =  DB::table("pages")->where([['page_name', $name],['status', 1]]);
         return $data->orderBy('page_id', 'desc')->get();
     }
+
+    static function getSubPageByName($name)
+    {
+        $data =  DB::table("subpage")->where([['subpage_name', $name],['status', 1]]);
+        return $data->orderBy('subpage_id', 'desc')->get();
+    }
+
+    static function getSubPageByPageId($id)
+    {
+        $data =  DB::table("subpage")->where([['page_id', $id],['status', 1]]);
+        return $data->orderBy('subpage_id', 'desc')->get();
+    }
+
+    static function getProductSubPageByName($name)
+    {
+        $data =  DB::table("products")->where([['product_subpagename', $name],['status', 1]]);
+        return $data->orderBy('product_id', 'desc')->get();
+    }
+
+
+    static function getSocialMedia($id = '')
+    {
+        $data =  DB::table("social_media")->where('status', 1);
+        if($id !=''){
+            $data->where('social_media_id', $id);
+        }
+        return $data->orderBy('social_media_id', 'desc')->get();
+    }
+
 }

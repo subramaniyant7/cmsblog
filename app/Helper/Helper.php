@@ -93,5 +93,17 @@ function getSubCategoryById($id){
     return DB::table('sub_category')->where('sub_category_id', $id)->get();
 }
 
+function pageName(){
+    $name = ['profile' => 'profile','who'=>'whoweare','vision'=> 'visionmission','why'=>'whyus','software' =>'software','medical'=>'medicalequipment',
+            'bclad' =>'bioclad','pclad' =>'printclad','kclad' =>'kleenclad','faq'=>'faq','anti'=>'antimicrobialwallcladding','hygenic'=>'hygenicwallcladding',
+        'wall'=>'wallprotection','ips'=>'ips','safety'=>'safetyflooring','doorsets'=>'doorsets'];
+    return $name;
+}
+
+function getSocialMedia(){
+    $data =  DB::table("social_media")->where('status', 1);
+    return $data->orderBy('social_media_id', 'desc')->get();
+}
+
 
 ?>

@@ -16,13 +16,16 @@ use App\Http\Controllers\frontend\FrontendController;
 |
 */
 
-Route::get('/', function () { return view('welcome');});
+Route::get('/', function () { return view('frontend.home');});
 Route::get('/home', function () { return view('frontend.home');});
-Route::get('/profile', [FrontendController::class, 'Profile']);
+
+Route::get('/ourclients', [FrontendController::class, 'OurClients']);
+Route::get('/contactus', [FrontendController::class, 'ContactUs']);
+
 Route::get('/gallery', [FrontendController::class, 'Gallery']);
 Route::get('/gallerydetails/{id}', [FrontendController::class, 'GalleryDetails']);
-Route::get('/faq', [FrontendController::class, 'Faq']);
-
+Route::get('/{pagename}/pageview', [FrontendController::class, 'HandlePages']);
+Route::get('/{parentname}/products/{pagename}', [FrontendController::class, 'HandleProductPages']);
 
 
 Route::prefix(ADMINURL)->group(function () {
@@ -32,6 +35,12 @@ Route::prefix(ADMINURL)->group(function () {
     });
 
     Route::get('/dashboard', [AdminController::class, 'Dashboard'])->name('dashboard');
+    Route::get('/social_media', [AdminController::class, 'GetSocialMediaLink']);
+    Route::post('/social_media', [AdminController::class, 'UpdateSocialMediaLink']);
+    
+    Route::get('/uploadimages', [AdminController::class, 'UploadImages']);
+    Route::post('/saveuploadimages', [AdminController::class, 'SaveUploadImage']);
+    
     Route::get('/change_password', [AdminController::class, 'MyProfilePassword']);
     Route::post('/update_password', [AdminController::class, 'MyProfilePasswordUpdate']);
 
@@ -60,12 +69,14 @@ Route::prefix(ADMINURL)->group(function () {
     Route::get('/actionclientgallery/{option}/{id}', [AdminController::class, 'ActionClientGallery']);
     Route::post('/saveclientgallerydetails', [AdminController::class, 'SaveClientGalleryDetails']);
 
-
     Route::get('/actionpageinfo', [AdminController::class, 'ActionPageInfo']);
     Route::post('/savepageinfo', [AdminController::class, 'SavePageInfo']);
+    Route::get('/actionproductpageinfo', [AdminController::class, 'ActionProductPageInfo']);
+    Route::post('/saveproductpageinfo', [AdminController::class, 'SaveProductPageInfo']);
     
     // Ajax
     Route::post('/getClientCategory', [AjaxController::class, 'GetClientCategory']);
+    Route::post('/deletecmsimage', [AjaxController::class, 'DeleteUploadImage']);
 
     Route::get('/logout', [AdminController::class, 'AdminLogout']);
 });

@@ -17,64 +17,53 @@
                 <div class="portfolio-details">
                     <div class="portfolio-details-img">
                         @foreach ($galleryAsset['videos'] as $video)
-                            {!! $video->clients_gallery_videos_name !!}
+                        {!! $video->clients_gallery_videos_name !!}
                         @endforeach
                     </div>
                     <div class="portfolio-details-content">
                         <h3 class="title">Project Details</h3>
-                        <p align="justify"> 
+                        <p align="justify">
                             {!! $clientGallery[0]->clients_gallery_description !!}
                         </p>
 
                         <div style="display:flex;justify-content: space-between;">
                             @foreach ($galleryAsset['images'] as $k => $assetImage)
-                                @if($k >= 3) 
-                                <a href="javascript:void(0)" style="height:300px;width:300px;">
-                                    <img src="{{ URL::asset('uploads/clients/gallery/'.$assetImage->clients_gallery_images_name) }}" style="height:100%;width:100%;">
-                                </a>
-                                @endif
+                            @if($k >= 3)
+                            <a href="javascript:void(0)" style="height:300px;width:300px;">
+                                <img src="{{ URL::asset('uploads/clients/gallery/'.$assetImage->clients_gallery_images_name) }}" style="height:100%;width:100%;">
+                            </a>
+                            @endif
                             @endforeach
                         </div>
 
+                      
+                        
+                        @if(count($relatedProjects))
                         <div class="related-project">
                             <h3 class="title">Related Projects</h3>
                             <div class="row">
+                                @foreach ($relatedProjects as $project)
                                 <div class="col-lg-6 col-md-12">
                                     <div class="single-portfolio">
                                         <figure>
-                                            <a href="#">
-                                                <img src="{{ URL::asset('assets/img/g1.png') }}" alt="portfolio-img">
+                                            <a href="{{ url('gallerydetails/'.encryption($project->client_id)) }}">
+                                                <img src="{{ URL::asset('uploads/clients/'.$project->client_logo) }}" alt="portfolio-img">
                                                 <span class="list-overlay"></span>
                                             </a>
                                         </figure>
                                         <div class="portfolio-content">
-                                            <h4><a href="#">HYGIENIC WALL CLADDING</a></h4>
+                                            <h4><a href="{{ url('gallerydetails/'.encryption($project->client_id)) }}">{{ $project->client_name }}</a></h4>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
+                               
 
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="single-portfolio">
-                                        <figure>
-                                            <a href="#">
-                                                <img src="assets/img/g2.png" alt="portfolio-img">
-                                                <span class="list-overlay"></span>
-                                            </a>
-
-                                            <div class="link-view">
-                                                <a href="#"><i class="fa fa-link"></i></a>
-                                                <a href="#" data-bs-toggle="modal" data-target="#ModalCenter"><i class="fa fa-arrows-alt"></i></a>
-                                            </div>
-                                        </figure>
-
-                                        <div class="portfolio-content">
-                                            <h4><a href="#">PRINTCLAD</a></h4>
-                                        </div>
-                                    </div>
-                                </div>
+                             
 
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

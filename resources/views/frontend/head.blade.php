@@ -1,8 +1,32 @@
+@php
+    $title = 'GoHealthe'; 
+    $desc = $keywords = $abstract = $topic = $type = $author = $site = $copyright = '';
+    if(isset($pageData)){
+        $title = $pageData['page_title'];
+        $desc = $pageData['page_desc'];
+        $keywords = $pageData['page_keyword'];
+        $abstract = $pageData['page_abstract'];
+        $topic = $pageData['page_topic'];
+        $type = $pageData['page_type'];
+        $author = $pageData['page_author'];
+        $site = $pageData['page_site'];
+        $copyright = $pageData['page_copyright'];
+    }   
+@endphp
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{$title}}</title>
+    <meta name="description" content="{{$desc}}" />
+    <meta name="keywords" content="{{$keywords}}" />
+    <meta name="abstract" content="{{$abstract}}" />
+    <meta name="page-topic" content="{{$topic}}" />
+    <meta name="page-type" content="{{$type}}" />
+    <meta name="author" content="{{$author}}" />
+    <meta name="site" content="{{$site}}" />
+    <meta name="copyright" content="{{$copyright}}" />
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ URL::asset('frontend/assets/css/bootstrap.min.css') }}">
     <!-- Animate CSS -->
@@ -24,7 +48,5 @@
     <!-- Color Switcher CSS -->
     <link rel="stylesheet" href="{{ URL::asset('frontend/assets/dist/color-switcher.css') }}">
 
-    <title>Gohealthe</title>
-
-
 </head>
+

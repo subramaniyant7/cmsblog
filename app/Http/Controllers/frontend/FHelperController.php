@@ -53,11 +53,19 @@ class FHelperController extends Controller
 
     static function getClients()
     {
-        // DB::statement("SET SQL_MODE=''");
         $data =  DB::table("client_details")
             ->join('clients_gallery', 'client_details.client_id', '=', 'clients_gallery.clients_gallery_client')
             ->select('client_details.*');
         return $data->get();
+    }
+
+    static function getRelatedClients($id)
+    {
+        $data =  DB::table("client_details")
+            ->join('clients_gallery', 'client_details.client_id', '=', 'clients_gallery.clients_gallery_client')
+            ->select('client_details.*')
+            ->where('client_details.client_id', '!=', $id);
+        return $data->inRandomOrder()->take(2)->get();
     }
 
 }

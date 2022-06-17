@@ -56,6 +56,47 @@ class AdminController extends Controller
         }
     }
 
+    public function GetSocialMediaLink(){
+        $data = HelperController::getSocialMedia();
+        return view('admin.actionsocialmedia',compact('data'));
+    }
+
+    public function UpdateSocialMediaLink(Request $req){
+        $formData = $req->except('_token','social_media_id');
+        if ($req->input('social_media_id') == '') {
+            $saveData = insertQuery('social_media', $formData);
+        } else {
+            $actionId = decryption($req->input('social_media_id'));
+            $saveData = updateQuery('social_media', 'social_media_id', $actionId, $formData);
+        }
+        $notify = notification($saveData);
+        return back()->with($notify['type'], $notify['msg']);
+    }
+
+    public function UploadImages()
+    {
+        return view('admin.uploadimages');
+    }
+
+    public function SaveUploadImage(Request $req)
+    {
+        if ($req->hasFile('upload_image')) {
+
+            $file1 = $req->file('upload_image');
+            $fileName1 = $file1->getClientOriginalName();
+            $extension1 = explode('.', $fileName1);
+            $allowedFormats = ['jpeg', 'jpg', 'png'];
+            $format = strtolower(end($extension1));
+            if (!in_array($format, $allowedFormats)) return back()->with('error', 'Upload only Jpeg, Jpg, Png images');
+            $location1 = public_path('uploads/cmspageimages');
+            $file1->move($location1, $fileName1);
+            return back()->with('success', 'Image Uploaded Successfully');
+        }
+        return back()->with('error', 'Please upload image');
+    }
+
+
+
     public function Dashboard(Request $req)
     {
         return view('admin.dashboard');
@@ -294,14 +335,14 @@ class AdminController extends Controller
         }
 
         $clientExist = HelperController::getClientGalleryByClientId($formData['clients_gallery_client']);
-        if(count($clientExist)) return back()->with('error', 'Client Already exist.Please select other client');
+        if (count($clientExist)) return back()->with('error', 'Client Already exist.Please select other client');
 
-        if(($req->input('clients_gallery_subcategory')) && count($req->input('clients_gallery_subcategory'))){
+        if (($req->input('clients_gallery_subcategory')) && count($req->input('clients_gallery_subcategory'))) {
             $formData['clients_gallery_subcategory'] = json_encode($req->input('clients_gallery_subcategory'));
         }
 
 
-        if(!array_key_exists('clients_gallery_subcategory', $req->input()) || $formData['clients_gallery_category'] != 1){
+        if (!array_key_exists('clients_gallery_subcategory', $req->input()) || $formData['clients_gallery_category'] != 1) {
             $formData['clients_gallery_subcategory'] = json_encode([]);
         }
 
@@ -342,8 +383,8 @@ class AdminController extends Controller
             $videos = $req->input('clients_gallery_videos_name');
 
             foreach ($videos as $k => $video) {
-                if($video == ''){
-                    $deleteRow = DB::table('clients_gallery_videos')->where(['clients_gallery_videos_galleryid' =>$galleryId, 'clients_gallery_videos_row'=> $k+1])->delete();
+                if ($video == '') {
+                    $deleteRow = DB::table('clients_gallery_videos')->where(['clients_gallery_videos_galleryid' => $galleryId, 'clients_gallery_videos_row' => $k + 1])->delete();
                 }
                 if ($video != '') {
                     $videorowExist = HelperController::checkVideoExistByRow($galleryId, $k + 1);
@@ -365,43 +406,39 @@ class AdminController extends Controller
         return redirect(ADMINURL . '/viewclientgallery')->with($notify['type'], $notify['msg']);
     }
 
-
+    // Action Pages
     public function ActionPageInfo(Request $req)
     {
         $type = '';
-        try{
+        try {
             $type = decryption($req->input('type'));
-        }catch(\Exception $e){
-            return redirect(ADMINURL.'/dashboard');
+        } catch (\Exception $e) {
+            return redirect(ADMINURL . '/dashboard');
         }
-        if($type == '') return redirect(ADMINURL.'/dashboard');
-        $viewHtml = $this->getPageView($type);
-        if($viewHtml == '') return redirect(ADMINURL.'/dashboard');
-        return $viewHtml;
-    }
-
-    private function getProfile(){
-        $profilePage = HelperController::getPageByName('profile');
-        return view('admin.pages.profile', compact('profilePage'));
-    }
-
-    private function getPageView($type){
-        $viewHtml = '';
-        switch($type){
-            case 'profile':
-                $viewHtml = $this->getProfile();
-                break;
-            default:
-                break;
-        }
-        return $viewHtml;
+        if ($type == '') return redirect(ADMINURL . '/dashboard');
+        $pagecontent = HelperController::getPageByName($type);
+        return view('admin.pages.contentpage', compact('pagecontent'));
     }
 
     public function SavePageInfo(Request $req)
     {
-        if($req->input('page_content') == '') return back()->with('error', 'Please Enter Page Content');
-        $formData = $req->only('page_content');
+        $formData = $req->except('_token','page_id','files');
+
+        if($formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' || 
+        $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' || 
+        $formData['page_copyright'] == '' || $formData['page_content'] == '' ){
+            return back()->with('error','Please Enter all mandatory fields');
+        }
+
+       
+        // if ($req->input('page_content') == '') return back()->with('error', 'Please Enter Page Content');
+        // $formData = $req->only('page_content');
         $formData['page_name'] = decryption($req->input('page_name'));
+
+        //  echo '<pre>';
+        // print_r($formData);
+        // exit;
+
         if ($req->input('page_id') == '') {
             $saveData = insertQueryId('pages', $formData);
         } else {
@@ -412,7 +449,80 @@ class AdminController extends Controller
         return back()->with($notify['type'], $notify['msg']);
     }
 
+    // Action Product Pages
+    public function ActionProductPageInfo(Request $req)
+    {
+        $type = '';
+        try {
+            $type = decryption($req->input('type'));
+        } catch (\Exception $e) {
+            return redirect(ADMINURL . '/dashboard');
+        }
+        if ($type == '') return redirect(ADMINURL . '/dashboard');
+        $pagecontent = HelperController::getProductSubPageByName($type);
+        // echo '<pre>';
+        // print_r($pagecontent);
+        // exit;
+        return view('admin.pages.productcontentpage', compact('pagecontent'));
+    }
 
+    public function SaveProductPageInfo(Request $req)
+    {
+        if (
+            $req->input('product_content') == '' || $req->input('product_about') == '' || $req->input('product_techincal_profile') == '' ||
+            $req->input('product_joint_details') == '' || $req->input('product_colours_finishes') == ''
+        ) {
+            return back()->with('error', 'Please Enter all mandatory fields');
+        }
+
+        if (!$req->hasFile('product_techincal_documents') && $req->input('product_id') == '') {
+            return back()->with('error', 'Please Upload Technical Documents');
+        }
+
+        $formData = $req->except(['_token','product_id','files','editproduct_techincal_document1', 'editproduct_techincal_document2']);
+
+        if($formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' || 
+        $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' || 
+        $formData['page_copyright'] == ''  ){
+            return back()->with('error','Please Enter all mandatory fields');
+        }
+
+        $formData['product_pagename'] = decryption($req->input('product_pagename'));
+        $formData['product_subpagename'] = decryption($req->input('product_subpagename'));
+
+        if ($formData['product_pagename'] == '' || $formData['product_subpagename'] == '') return back()->with('error', 'Something went wrong.Please try again');
+
+        $fileName1 = $fileName2 = '';
+        if ($req->hasFile('product_techincal_document1')) {
+            $file1 = $req->file('product_techincal_document1');
+            $fileName1 = $file1->getClientOriginalName();
+            $extension1 = explode('.', $fileName1);
+            if (strtolower(end($extension1)) != 'pdf') return back()->with('error', 'Upload PDF file only for Techinical Documents');
+            $location1 = public_path('uploads/products/docs');
+            $file1->move($location1, $fileName1);
+        }
+
+        if ($req->hasFile('product_techincal_document2')) {
+            $file2 = $req->file('product_techincal_document2');
+            $fileName2 = $file2->getClientOriginalName();
+            $extension2 = explode('.', $fileName2);
+            if (strtolower(end($extension2)) != 'pdf') return back()->with('error', 'Upload PDF file only for Techinical Documents');
+            $location2 = public_path('uploads/products/docs');
+            $file2->move($location2, $fileName2);
+        }
+
+        $formData['product_techincal_document1'] = $fileName1 != '' ? $fileName1 : $req->input('editproduct_techincal_document1');
+        $formData['product_techincal_document2'] = $fileName2 != '' ? $fileName2 : $req->input('editproduct_techincal_document2');
+
+        if ($req->input('product_id') == '') {
+            $saveData = insertQueryId('products', $formData);
+        } else {
+            $pageId = decryption($req->input('product_id'));
+            $saveData = updateQuery('products', 'product_id', $pageId, $formData);
+        }
+        $notify = notification($saveData);
+        return back()->with($notify['type'], $notify['msg']);
+    }
 
 
     public function AdminLogout(Request $req)

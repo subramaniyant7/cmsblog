@@ -18,4 +18,18 @@ class AjaxController extends Controller
         }
         return response()->json($initialResponse);
     }
+
+    public function DeleteUploadImage(Request $request){
+        $initialResponse = ['status' => false, 'msg' =>''];
+        if ($request->input('filename') != '') {
+            $fileName = $request->input('filename');
+            if (file_exists(public_path('uploads/cmspageimages/' . $fileName))) {
+                unlink(public_path('uploads/cmspageimages/'.$fileName));
+                $initialResponse = ['status' => true, 'msg' => 'Image Deleted Successfully'];
+            }
+            
+        }
+
+        return response()->json($initialResponse);
+    }
 }
