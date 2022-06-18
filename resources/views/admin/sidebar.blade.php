@@ -164,6 +164,7 @@
                                 class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['faq'] ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>FAQ</p>
+
                             </a>
                         </li>
                     </ul>
