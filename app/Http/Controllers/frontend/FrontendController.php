@@ -10,6 +10,16 @@ use App\Http\Controllers\admin\HelperController;
 class FrontendController extends Controller
 {
 
+    public function Home(){
+        $pageContent = HelperController::getPageByName('home');
+        $feature = HelperController::getFeature();
+        // echo '<pre>';
+        // print_r($pageContent);
+        // exit;
+        if (!count($pageContent)) return view('frontend.404');
+        return view('frontend.home', compact('pageContent','feature'));
+    }
+
     public function OurClients()
     {
         $clients = FHelperController::getClients();
@@ -20,6 +30,20 @@ class FrontendController extends Controller
     {
         $socialMedia = HelperController::getSocialMedia();
         return view('frontend.contactus',compact('socialMedia'));
+    }
+
+    
+
+    public function SubmitContact(Request $req){
+        $formData = $req->except('_token');
+        if($formData['name'] == '' || $formData['email'] == '' || $formData['number'] == '' || $formData['message'] == '') return back()->with('error','Please enter mandatory fields');
+        return back()->with('success','Thank you for contacting GoHealthe. We will reach you soon');
+    }
+
+    public function Enquiry(Request $req){
+        $formData = $req->except('_token');
+        if($formData['name'] == '' || $formData['email'] == '' || $formData['number'] == '' || $formData['message'] == '') return back()->with('error','Please enter mandatory fields');
+        return back()->with('success','Enquired Submitted');
     }
 
 

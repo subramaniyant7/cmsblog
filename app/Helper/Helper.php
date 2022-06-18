@@ -99,7 +99,7 @@ function pageName(){
             'wall'=>'wallprotection','ips'=>'ips','safety'=>'safetyflooring','doorsets'=>'doorsets','director'=>'directormessage',
             'photo'=>'photoclad','kclAnti'=>'kcladantimicrobialwallcladding','kclhygenic'=>'khygenicwallcladding','wallclad'=>'wallcladding','floorclad'=>'floorcladding',
             'construction'=>'constructionbyspecification','install'=>'installation','design'=>'design','develop'=>'develop','deliver'=>'deliver','maintain'=>'maintain',
-            'privacy'=>'privacypolicy','terms'=>'termsconditions'
+            'privacy'=>'privacypolicy','terms'=>'termsconditions','home'=>'home'
         ];
     return $name;
 }

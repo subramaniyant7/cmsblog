@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\admin\HelperController;
+use Mail;
 
 class AdminController extends Controller
 {
@@ -24,6 +25,33 @@ class AdminController extends Controller
             }
         }
         return back()->withInput()->with('error', 'Invalid Credentials');
+    }
+
+    public function ForgotPassword(Request $req){
+        if($req->admin_name =='') return back()->with('error', 'Invalid Action');
+        $isValidUser = DB::table('admin_details')->where('admin_name', $req->input('admin_name'))->get();
+        if(count($isValidUser)){
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < 10; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+            $update = updateQuery('admin_details','admin_id',$isValidUser[0]->admin_id,['admin_password' => md5($randomString)]);
+            $data = array('user_email'=>$isValidUser[0]->admin_name,'user_password'=>$randomString);
+            try{
+                Mail::send('admin.forgotpasswordemail', $data, function($message) use ($data) {
+                    $message->to($data['user_email'], 'Forgot Password')->subject
+                        ('Forgot Password Initialization');
+                    $message->from(getenv('MAIL_USERNAME'), 'admin');
+
+                });
+                return redirect(ADMINURL)->with('success', 'Please check your email we have sent new password');
+            }catch(\Exception $e){
+                return back()->with('error', 'Something Went Wrong Please try again later...');
+            }
+        }
+        return back()->with('error', 'Invalid User');
     }
 
     public function MyProfilePassword(Request $req)
@@ -54,6 +82,23 @@ class AdminController extends Controller
             return redirect(ADMINURL . '/logout');
             return back()->with('success', 'Password Updated Successfully');
         }
+    }
+
+    public function GetFeature(){
+        $data = HelperController::getFeature();
+        return view('admin.actionfeature',compact('data'));
+    }
+
+    public function UpdateFeature(Request $req){
+        $formData = $req->except('_token','feature_id');
+        if ($req->input('feature_id') == '') {
+            $saveData = insertQuery('feature', $formData);
+        } else {
+            $actionId = decryption($req->input('feature_id'));
+            $saveData = updateQuery('feature', 'feature_id', $actionId, $formData);
+        }
+        $notify = notification($saveData);
+        return back()->with($notify['type'], $notify['msg']);
     }
 
     public function GetSocialMediaLink(){
@@ -89,7 +134,7 @@ class AdminController extends Controller
             $format = strtolower(end($extension1));
             if (!in_array($format, $allowedFormats)) return back()->with('error', 'Upload only Jpeg, Jpg, Png images');
             $location1 = public_path('uploads/cmspageimages');
-            $file1->move($location1, $fileName1);
+            $file1->move($location1, strtotime(date("Y-m-d H:i:s")).'_'.$fileName1);
             return back()->with('success', 'Image Uploaded Successfully');
         }
         return back()->with('error', 'Please upload image');

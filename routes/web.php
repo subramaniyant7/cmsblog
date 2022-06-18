@@ -16,11 +16,12 @@ use App\Http\Controllers\frontend\FrontendController;
 |
 */
 
-Route::get('/', function () { return view('frontend.home');});
-Route::get('/home', function () { return view('frontend.home');});
+Route::get('/', [FrontendController::class, 'Home']);
 
 Route::get('/ourclients', [FrontendController::class, 'OurClients']);
 Route::get('/contactus', [FrontendController::class, 'ContactUs']);
+Route::post('/contactus', [FrontendController::class, 'SubmitContact']);
+Route::post('/enquiry', [FrontendController::class, 'Enquiry']);
 
 Route::get('/gallery', [FrontendController::class, 'Gallery']);
 Route::get('/downloads', [FrontendController::class, 'Downloads']);
@@ -32,10 +33,14 @@ Route::get('/{parentname}/products/{pagename}', [FrontendController::class, 'Han
 Route::prefix(ADMINURL)->group(function () {
     Route::middleware(['adminloginvalidate'])->group(function () {
         Route::get('/', function () { return view('admin.login'); });
+        Route::get('/forgotpassword', function () { return view('admin.forgotpassword'); });
+        Route::post('/forgotpassword', [AdminController::class, 'ForgotPassword']);
         Route::post('/login', [AdminController::class, 'AdminLogin']);
     });
 
     Route::get('/dashboard', [AdminController::class, 'Dashboard'])->name('dashboard');
+    Route::get('/feature', [AdminController::class, 'GetFeature']);
+    Route::post('/feature', [AdminController::class, 'UpdateFeature']);
     Route::get('/social_media', [AdminController::class, 'GetSocialMediaLink']);
     Route::post('/social_media', [AdminController::class, 'UpdateSocialMediaLink']);
     

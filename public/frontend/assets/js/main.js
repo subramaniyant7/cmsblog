@@ -38,11 +38,6 @@
                     $(this).removeClass("open");
                 }
             });
-
-            $("form").on("submit",function(event) {
-                event.preventDefault();
-                return false;
-            });
         });
         
         

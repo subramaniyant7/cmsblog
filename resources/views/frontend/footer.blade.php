@@ -79,7 +79,7 @@
        </div>
 
        <script src="https://apps.elfsight.com/p/platform.js" defer></script>
-<div class="elfsight-app-791fea70-559f-4912-8fa1-48546bbf15e3"></div>
+       <div class="elfsight-app-791fea70-559f-4912-8fa1-48546bbf15e3"></div>
    </footer>
    <!-- End Footer Area -->
 
@@ -113,6 +113,14 @@
    <link href="{{ URL::asset('frontend/assets/css/skdslider.css') }}" rel="stylesheet">
    <script type="text/javascript">
        jQuery(document).ready(function() {
+           jQuery('#sliderview').skdslider({
+               delay: 5000,
+               animationSpeed: 2000,
+               showNextPrev: true,
+               showPlayButton: true,
+               autoSlide: true,
+               animationType: 'fading'
+           });
 
            jQuery('#responsive').change(function() {
                $('#responsive_wrapper').width(jQuery(this).val());

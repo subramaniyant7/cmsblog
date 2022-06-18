@@ -64,49 +64,49 @@
                 </li>
 
                 @php
-                    $about = $installation = $project = $pages = $product = $bio = $print = $kclad = '';
-                    $aboutUs = [pageName()['profile'],pageName()['who'],pageName()['vision'],pageName()['director'],pageName()['why']];
-                    $install = [pageName()['wallclad'],pageName()['floorclad'],pageName()['construction']];
-                    $pro = [pageName()['design'],pageName()['deliver'],pageName()['maintain'],pageName()['develop']];
-                    $pagesContent = [pageName()['software'],pageName()['medical'],pageName()['faq'],pageName()['privacy'],pageName()['terms']];
-                    $productContent = [];
-                    $bioClad = [pageName()['bclad'],pageName()['anti'],pageName()['hygenic'],pageName()['wall'],
-                                        pageName()['ips'],pageName()['safety'],pageName()['doorsets']];
-                    $productContent = array_merge($productContent,$bioClad);
-                    $printClad = [pageName()['pclad'],pageName()['photo']];
-                    $productContent = array_merge($productContent,$printClad);
-                    $kleenClad = [pageName()['kclad'],pageName()['kclAnti'],pageName()['kclhygenic']];
-                    $productContent = array_merge($productContent,$kleenClad);
-                 
+                $about = $installation = $project = $pages = $product = $bio = $print = $kclad = '';
+                $aboutUs = [pageName()['profile'],pageName()['who'],pageName()['vision'],pageName()['director'],pageName()['why']];
+                $install = [pageName()['wallclad'],pageName()['floorclad'],pageName()['construction']];
+                $pro = [pageName()['design'],pageName()['deliver'],pageName()['maintain'],pageName()['develop']];
+                $pagesContent = [pageName()['software'],pageName()['medical'],pageName()['faq'],pageName()['privacy'],pageName()['terms']];
+                $productContent = [];
+                $bioClad = [pageName()['bclad'],pageName()['anti'],pageName()['hygenic'],pageName()['wall'],
+                pageName()['ips'],pageName()['safety'],pageName()['doorsets']];
+                $productContent = array_merge($productContent,$bioClad);
+                $printClad = [pageName()['pclad'],pageName()['photo']];
+                $productContent = array_merge($productContent,$printClad);
+                $kleenClad = [pageName()['kclad'],pageName()['kclAnti'],pageName()['kclhygenic']];
+                $productContent = array_merge($productContent,$kleenClad);
 
-                    if(request()->type && in_array(decryption(request()->type),$aboutUs)){
-                        $about = 'menu-open';
-                    }
 
-                    if(request()->type && in_array(decryption(request()->type),$install)){
-                        $installation = 'menu-open';
-                    }
+                if(request()->type && in_array(decryption(request()->type),$aboutUs)){
+                $about = 'menu-open';
+                }
 
-                    if(request()->type && in_array(decryption(request()->type),$pro)){
-                        $project = 'menu-open';
-                    }
+                if(request()->type && in_array(decryption(request()->type),$install)){
+                $installation = 'menu-open';
+                }
 
-                    if(request()->type && in_array(decryption(request()->type),$pagesContent)){
-                        $pages = 'menu-open';
-                    }
-                    if(request()->type && in_array(decryption(request()->type),$productContent)){
-                        $product = 'menu-open';
-                    }
-                    if(request()->type && in_array(decryption(request()->type),$bioClad)){
-                        $bio = 'menu-open';
-                    }
-                    if(request()->type && in_array(decryption(request()->type),$printClad)){
-                        $print = 'menu-open';
-                    }
+                if(request()->type && in_array(decryption(request()->type),$pro)){
+                $project = 'menu-open';
+                }
 
-                    if(request()->type && in_array(decryption(request()->type),$kleenClad)){
-                        $kclad = 'menu-open';
-                    }
+                if(request()->type && in_array(decryption(request()->type),$pagesContent)){
+                $pages = 'menu-open';
+                }
+                if(request()->type && in_array(decryption(request()->type),$productContent)){
+                $product = 'menu-open';
+                }
+                if(request()->type && in_array(decryption(request()->type),$bioClad)){
+                $bio = 'menu-open';
+                }
+                if(request()->type && in_array(decryption(request()->type),$printClad)){
+                $print = 'menu-open';
+                }
+
+                if(request()->type && in_array(decryption(request()->type),$kleenClad)){
+                $kclad = 'menu-open';
+                }
 
                 @endphp
 
@@ -120,36 +120,31 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['profile']) }}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['profile'] ? 'active' : ''}}" name="{{ pageName()['profile']}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['profile']) }}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['profile'] ? 'active' : ''}}" name="{{ pageName()['profile']}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Profile</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['who'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['who'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['who'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['who'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Who We Are</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['vision'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['vision'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['vision'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['vision'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Vision Mission</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['director'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['director'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['director'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['director'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Director Message</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['why'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['why'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['why'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['why'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Why Us</p>
                             </a>
@@ -167,22 +162,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['wallclad']).'&&page='.encryption(pageName()['install']) }}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['wallclad'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['wallclad']).'&&page='.encryption(pageName()['install']) }}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['wallclad'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Wall Cladding</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['floorclad']).'&&page='.encryption(pageName()['install'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['floorclad'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['floorclad']).'&&page='.encryption(pageName()['install'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['floorclad'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Floor Cladding</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['construction']).'&&page='.encryption(pageName()['install'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['construction'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['construction']).'&&page='.encryption(pageName()['install'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['construction'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Construction by Specification</p>
                             </a>
@@ -200,29 +192,25 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['design']) }}"
-                                class="nav-link {{ request()->type && decryption(request()->type) == pageName()['design'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['design']) }}" class="nav-link {{ request()->type && decryption(request()->type) == pageName()['design'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Design</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['develop'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type) == pageName()['develop'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['develop'])}}" class="nav-link {{ request()->type && decryption(request()->type) == pageName()['develop'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Develop</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['deliver'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type) == pageName()['deliver'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['deliver'])}}" class="nav-link {{ request()->type && decryption(request()->type) == pageName()['deliver'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Deliver</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['maintain'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['maintain'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['maintain'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['maintain'] ? 'active' : ''}}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Maintain</p>
                             </a>
@@ -247,50 +235,43 @@
 
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['bclad'])}}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['bclad'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['bclad'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['bclad'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Bioclad (Landing Page)</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['anti']).'&&page='.encryption(pageName()['bclad']) }}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['anti'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['anti']).'&&page='.encryption(pageName()['bclad']) }}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['anti'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Antimicrobial Wall Cladding</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['hygenic']).'&&page='.encryption(pageName()['bclad'])}}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['hygenic'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['hygenic']).'&&page='.encryption(pageName()['bclad'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['hygenic'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Hygenic Wall Cladding</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['wall']).'&&page='.encryption(pageName()['bclad'])}}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['wall'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['wall']).'&&page='.encryption(pageName()['bclad'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['wall'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Wall Protection</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['ips']).'&&page='.encryption(pageName()['bclad'])}}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['ips'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['ips']).'&&page='.encryption(pageName()['bclad'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['ips'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>IPS</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['safety']).'&&page='.encryption(pageName()['bclad'])}}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['safety'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['safety']).'&&page='.encryption(pageName()['bclad'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['safety'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Safety Flooring</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['doorsets']).'&&page='.encryption(pageName()['bclad'])}}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['doorsets'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['doorsets']).'&&page='.encryption(pageName()['bclad'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['doorsets'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Doorsets</p>
                                     </a>
@@ -307,15 +288,13 @@
 
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['pclad'])}}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['pclad'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['pclad'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['pclad'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Printclad (Landing Page)</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['photo']).'&&page='.encryption(pageName()['pclad']) }}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['photo'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['photo']).'&&page='.encryption(pageName()['pclad']) }}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['photo'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Photoclad</p>
                                     </a>
@@ -332,22 +311,19 @@
 
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['kclad'])}}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['kclad'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['kclad'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['kclad'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Kleenclad (Landing Page)</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['kclAnti']).'&&page='.encryption(pageName()['kclad']) }}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['kclAnti'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['kclAnti']).'&&page='.encryption(pageName()['kclad']) }}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['kclAnti'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Antimicrobial Wall Cladding</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['kclhygenic']).'&&page='.encryption(pageName()['kclad']) }}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['kclhygenic'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['kclhygenic']).'&&page='.encryption(pageName()['kclad']) }}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['kclhygenic'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Hygenic Wall Cladding</p>
                                     </a>
@@ -369,22 +345,25 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['software'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['software'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['home'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['home'] ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Home</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['software'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['software'] ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Software</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['medical'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['medical'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['medical'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['medical'] ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Medical Equipments</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['faq'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['faq'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['faq'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['faq'] ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>FAQ</p>
 
@@ -392,8 +371,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['privacy'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['privacy'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['privacy'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['privacy'] ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Privacy Policy</p>
 
@@ -401,8 +379,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['terms'])}}"
-                                class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['terms'] ? 'active' : ''}}">
+                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['terms'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['terms'] ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Terms & Conditions</p>
                             </a>
@@ -424,6 +401,15 @@
                         <i class="nav-icon fas fa-globe"></i>
                         <p>
                             Social Media
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ADMINURL.'/feature'}}" class="nav-link {{ request()->segment(2) == 'feature' ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-key"></i>
+                        <p>
+                            Feature
                         </p>
                     </a>
                 </li>

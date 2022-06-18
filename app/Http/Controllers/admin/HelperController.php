@@ -168,4 +168,13 @@ class HelperController extends Controller
         return $data->orderBy('social_media_id', 'desc')->get();
     }
 
+    static function getFeature($id = '')
+    {
+        $data =  DB::table("feature")->where('status', 1);
+        if($id !=''){
+            $data->where('feature_id', $id);
+        }
+        return $data->orderBy('feature_id', 'desc')->get();
+    }
+
 }
