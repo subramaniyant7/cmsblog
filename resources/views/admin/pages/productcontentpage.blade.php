@@ -27,6 +27,7 @@
                         <form class="form-horizontal" method="POST" action="{{ url(ADMINURL.'/saveproductpageinfo') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
+                                @if(count($pagecontent))
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Copy Page URL</label>
                                     <div class="col-sm-9">
@@ -37,6 +38,7 @@
                                         <i style="cursor:pointer" url="{{$url}}" title="Copy" class="fa fa-2x fa-copy" onclick="copyToClipboard(this.getAttribute('url'))"></i>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="form-group row">
 
                                     <div class="col-sm-12">

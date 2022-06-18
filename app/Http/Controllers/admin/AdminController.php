@@ -473,15 +473,15 @@ class AdminController extends Controller
     {
 
 
-        if (!$req->hasFile('product_techincal_documents') && $req->input('product_id') == '') {
+        if ((!$req->hasFile('product_techincal_document1') || !$req->hasFile('product_techincal_document2')) && $req->input('product_id') == '') {
             return back()->with('error', 'Please Upload Technical Documents');
         }
 
         $formData = $req->except(['_token','product_id','files','editproduct_techincal_document1', 'editproduct_techincal_document2']);
 
-        echo '<pre>';
-        print_r($formData);
-        exit;
+        // echo '<pre>';
+        // print_r($formData);
+        // exit;
         if (
             $req->input('product_content') == '' || $req->input('product_about') == '' || $req->input('product_techincal_profile') == '' ||
             $req->input('product_joint_details') == '' || $req->input('product_colours_finishes') == ''

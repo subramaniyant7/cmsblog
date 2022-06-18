@@ -21,7 +21,7 @@
 
                 <li class="nav-item">
                     <a href="{{ADMINURL.'/viewadmin'}}" class="nav-link {{ request()->segment(2) == 'viewadmin' ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-user"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             Admin
                         </p>
@@ -29,7 +29,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ADMINURL.'/viewcategories'}}" class="nav-link {{ request()->segment(2) == 'viewcategories' ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-list-alt"></i>
                         <p>
                             Category
                         </p>
@@ -38,7 +38,7 @@
 
                 <li class="nav-item">
                     <a href="{{ADMINURL.'/viewsubcategories'}}" class="nav-link {{ request()->segment(2) == 'viewsubcategories' ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-list-alt"></i>
                         <p>
                             Sub-Category
                         </p>
@@ -47,7 +47,7 @@
 
                 <li class="nav-item">
                     <a href="{{ADMINURL.'/viewclients'}}" class="nav-link {{ request()->segment(2) == 'viewclients' ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-user"></i>
                         <p>
                             Clients
                         </p>
@@ -64,31 +64,44 @@
                 </li>
 
                 @php
-                    $about = $pages = $product = $bio = '';
+                    $about = $pages = $product = $bio = $print = $kclad = '';
                     $aboutUs = [pageName()['profile'],pageName()['who'],pageName()['vision'],pageName()['director'],pageName()['why']];
                     $pagesContent = [pageName()['software'],pageName()['medical'],pageName()['faq']];
-                    $productContent = [pageName()['bclad'],pageName()['anti'],pageName()['hygenic'],pageName()['wall'],
-                                        pageName()['ips'],pageName()['safety'],pageName()['doorsets']];
+                    $productContent = [];
                     $bioClad = [pageName()['bclad'],pageName()['anti'],pageName()['hygenic'],pageName()['wall'],
                                         pageName()['ips'],pageName()['safety'],pageName()['doorsets']];
+                    $productContent = array_merge($productContent,$bioClad);
+                    $printClad = [pageName()['pclad'],pageName()['photo']];
+                    $productContent = array_merge($productContent,$printClad);
+                    $kleenClad = [pageName()['kclad'],pageName()['kclAnti'],pageName()['kclhygenic']];
+                    $productContent = array_merge($productContent,$kleenClad);
+                 
 
-                    if(in_array(request()->type && decryption(request()->type),$aboutUs)){
+                    if(request()->type && in_array(decryption(request()->type),$aboutUs)){
                         $about = 'menu-open';
                     }
-                    if(in_array(request()->type && decryption(request()->type),$pagesContent)){
+                    if(request()->type && in_array(decryption(request()->type),$pagesContent)){
                         $pages = 'menu-open';
                     }
-                    if(in_array(request()->type && decryption(request()->type),$productContent)){
+                    if(request()->type && in_array(decryption(request()->type),$productContent)){
                         $product = 'menu-open';
                     }
-                    if(in_array(request()->type && decryption(request()->type),$bioClad)){
+                    if(request()->type && in_array(decryption(request()->type),$bioClad)){
                         $bio = 'menu-open';
                     }
+                    if(request()->type && in_array(decryption(request()->type),$printClad)){
+                        $print = 'menu-open';
+                    }
+
+                    if(request()->type && in_array(decryption(request()->type),$kleenClad)){
+                        $kclad = 'menu-open';
+                    }
+
                 @endphp
 
                 <li class="nav-item {{$about}}">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-info"></i>
                         <p>
                             About Us
                             <i class="fas fa-angle-left right"></i>
@@ -169,7 +182,7 @@
 
                 <li class="nav-item {{$product}}">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fab fa-product-hunt"></i>
                         <p>
                             Products
                             <i class="fas fa-angle-left right"></i>
@@ -236,7 +249,7 @@
 
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item {{$print}}">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>PrintClad <i class="fas fa-angle-left right"></i></p>
@@ -251,8 +264,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['pclad']).'&&page='.encryption(pageName()['photo']) }}"
-                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['anti'] ? 'active' : ''}}">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['photo']).'&&page='.encryption(pageName()['pclad']) }}"
+                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['photo'] ? 'active' : ''}}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Photoclad</p>
                                     </a>
@@ -261,17 +274,43 @@
 
                         </li>
 
-                        <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['kclad'])}}" class="nav-link">
+                        <li class="nav-item {{$kclad}}">
+                            <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Kleenclad</p>
+                                <p>Kleenclad <i class="fas fa-angle-left right"></i></p>
                             </a>
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['kclad'])}}"
+                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['kclad'] ? 'active' : ''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Kleenclad (Landing Page)</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['kclAnti']).'&&page='.encryption(pageName()['kclad']) }}"
+                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['kclAnti'] ? 'active' : ''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Antimicrobial Wall Cladding</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['kclhygenic']).'&&page='.encryption(pageName()['kclad']) }}"
+                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['kclhygenic'] ? 'active' : ''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Hygenic Wall Cladding</p>
+                                    </a>
+                                </li>
+                            </ul>
+
                         </li>
+
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ADMINURL.'/uploadimages'}}" class="nav-link">
+                    <a href="{{ADMINURL.'/uploadimages'}}" class="nav-link {{ request()->segment(2) == 'uploadimages' ? 'active' : ''}}">
                         <i class="nav-icon far fa-image"></i>
                         <p>
                             Wesbite Images
@@ -280,8 +319,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ADMINURL.'/social_media'}}" class="nav-link">
-                        <i class="nav-icon far fa-globe"></i>
+                    <a href="{{ADMINURL.'/social_media'}}" class="nav-link {{ request()->segment(2) == 'social_media' ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-globe"></i>
                         <p>
                             Social Media
                         </p>
@@ -289,8 +328,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ADMINURL.'/change_password'}}" class="nav-link">
-                        <i class="nav-icon far fa-image"></i>
+                    <a href="{{ADMINURL.'/change_password'}}" class="nav-link {{ request()->segment(2) == 'change_password' ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-key"></i>
                         <p>
                             Change Password
                         </p>
