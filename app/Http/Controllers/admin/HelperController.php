@@ -34,6 +34,12 @@ class HelperController extends Controller
         return $data->orderBy('category_id', 'desc')->get();
     }
 
+    static function checkCategoryMappedWithClient($id)
+    {
+        return DB::table("client_details")->where('client_category', $id)->orderBy('client_id', 'desc')->get();
+    }
+
+
     static function getClients($id = '')
     {
         $data =  DB::table("client_details")
@@ -44,6 +50,11 @@ class HelperController extends Controller
             $data->where('client_details.client_id', $id);
         }
         return $data->orderBy('client_id', 'desc')->get();
+    }
+
+    static function checkClientHasGallery($id)
+    {
+        return DB::table("clients_gallery")->where('clients_gallery_client', $id)->orderBy('clients_gallery_id', 'desc')->get();
     }
 
     static function getClientByCategory($id)

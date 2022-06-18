@@ -22,14 +22,14 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8 offset-md-2">
+                <div class="col-md-12">
                     <div class="card card-info">
                         <form class="form-horizontal" method="POST" action="{{ url(ADMINURL.'/saveclientgallerydetails') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Category Name <span class="label-danger">*</span></label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-12">
+                                        <label class="col-sm-12 col-form-label">Category Name <span class="label-danger">*</span></label>
                                         <select class="custom-select form-control" name="clients_gallery_category" required onchange="getCategoryClient(this.value)">
                                             <option value="">Select</option>
                                             @foreach (getActiveRecord('category_details') as $category)
@@ -40,8 +40,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Client Name <span class="label-danger">*</span></label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-12">
+                                        <label class="col-sm-12 col-form-label">Client Name <span class="label-danger">*</span></label>
                                         <select class="custom-select form-control" name="clients_gallery_client" required>
                                             <option value="">Select</option>
 
@@ -51,8 +51,8 @@
 
 
                                 <div class="form-group row sub_category">
-                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Sub-Category Name </label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-12">
+                                        <label class="col-sm-12 col-form-label">Sub-Category Name </label>
                                         <div style="display:flex">
                                             @foreach (getActiveRecord('sub_category') as $subcategory)
                                             @php
@@ -70,7 +70,7 @@
                                                 }
                                             @endphp
                                             <div class="form-check" style="margin-left:1rem">
-                                                <input class="form-check-input" type="checkbox" {{$checked}} name="clients_gallery_subcategory[]" 
+                                                <input class="form-check-input" type="checkbox" {{$checked}} name="clients_gallery_subcategory[]"
                                                     value="{{ $subcategory->sub_category_id }}">
                                                 <label class="form-check-label">{{ $subcategory->sub_category_name }}</label>
                                             </div>
@@ -97,44 +97,31 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Sub-Category Name </label>
-                                    <div class="col-sm-9">
-                                        <select class="custom-select form-control" name="clients_gallery_subcategory">
-                                            <option value="">Select</option>
-                                            @foreach (getActiveRecord('sub_category') as $subcategory)
-                                            <option value="{{ $subcategory->sub_category_id }}" {{ isset($data[0]) && $data[0]->clients_gallery_subcategory == $subcategory->sub_category_id ? 'selected' : '' }}>
-                                                {{ $subcategory->sub_category_name }}
-                                            </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div> -->
-
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Date <span class="label-danger">*</span></label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-12">
+                                        <label class="col-sm-12 col-form-label">Date <span class="label-danger">*</span></label>
                                         <input type="date" class="form-control" name="clients_gallery_date" required value="{{ isset($action) && $action == 'edit' ? $data[0]->clients_gallery_date : old('clients_gallery_date') }}">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Location <span class="label-danger">*</span></label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-12">
+                                        <label class="col-sm-12 col-form-label">Location <span class="label-danger">*</span></label>
                                         <input type="text" class="form-control" name="clients_gallery_location" required value="{{ isset($action) && $action == 'edit' ? $data[0]->clients_gallery_location : old('clients_gallery_location') }}">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Budget <span class="label-danger">*</span></label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-12">
+                                        <label class="col-sm-12 col-form-label">Budget <span class="label-danger">*</span></label>
                                         <input type="text" class="form-control" name="clients_gallery_budget" required value="{{ isset($action) && $action == 'edit' ? $data[0]->clients_gallery_budget : old('clients_gallery_budget') }}">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Description <span class="label-danger">*</span></label>
-                                    <div class="col-sm-9">
+
+                                    <div class="col-sm-12">
+                                        <label class="col-sm-12 col-form-label">Description <span class="label-danger">*</span></label>
                                         <textarea id="summernote" name="clients_gallery_description">
                                         {{ isset($action) && $action == 'edit' ? $data[0]->clients_gallery_description : old('clients_gallery_description') }}
                                         </textarea>
@@ -147,25 +134,28 @@
                                 $imageLimit = count($getClientGallery) ? count($getClientGallery) : 3;
                                 @endphp
 
-                                @for ($p=1;$p<=2;$p++) <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Video {{$p}}</label>
-                                    <div class="col-sm-9">
-                                        <textarea class="form-control" name="clients_gallery_videos_name[]">{{ isset($getVideoGallery[$p-1]) ? trim($getVideoGallery[$p-1]->clients_gallery_videos_name) : ''}} </textarea>
+                                @for ($p=1;$p<=2;$p++)
+                                    <div class="form-group row">
+                                        <label class="col-sm-12 col-form-label">Video {{$p}}  <span class="label-danger">{{$p==1 ? '*' : ''}}</span></label>
+                                        <div class="col-sm-12">
+                                            <textarea class="form-control" name="clients_gallery_videos_name[]">{{ isset($getVideoGallery[$p-1]) ? trim($getVideoGallery[$p-1]->clients_gallery_videos_name) : ''}} </textarea>
+                                        </div>
                                     </div>
-                            </div>
-                            @endfor
+                                @endfor
 
 
-                            @for ($q=1;$q<=$imageLimit;$q++) <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Image {{$q}} <span class="label-danger">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="file" class="form-control mb-10 gallery_image" name="clients_gallery_images_name[]" value="" {{!isset($getClientGallery[$q-1]) ? 'required' : ''}}>
-                                    @if(isset($getClientGallery[$q-1]))
-                                    <span><img style="width: 100%;height: 200px;margin-top: 1em;" src="{{ URL::asset('uploads/clients/gallery/'.$getClientGallery[$q-1]->clients_gallery_images_name)}}"></span>
-                                    @endif
+                            @for ($q=1;$q<=$imageLimit;$q++)
+                                <div class="form-group row">
+
+                                    <div class="col-sm-12">
+                                        <label class="col-sm-12 col-form-label">Image {{$q}} <span class="label-danger">{{ $q <=3 ? '*' : ''}}   </span></label>
+                                        <input type="file" class="form-control mb-10 gallery_image" name="clients_gallery_images_name[]" value="" {{!isset($getClientGallery[$q-1]) ? 'required' : ''}}>
+                                        @if(isset($getClientGallery[$q-1]))
+                                        <span><img style="width: 100%;height: 200px;margin-top: 1em;" src="{{ URL::asset('uploads/clients/gallery/'.$getClientGallery[$q-1]->clients_gallery_images_name)}}"></span>
+                                        @endif
+                                    </div>
                                 </div>
-                    </div>
-                    @endfor
+                            @endfor
 
 
                     <div class="add_image"></div>
@@ -180,8 +170,9 @@
                     </div>
                     @if (isset($data[0]))
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-3 col-form-label">Status </label>
-                        <div class="col-sm-9">
+
+                        <div class="col-sm-12">
+                            <label class="col-sm-3 col-form-label">Status </label>
                             <select class="custom-select form-control" name="status">
                                 <option value="">Select</option>
                                 @foreach (statustype() as $s => $status)

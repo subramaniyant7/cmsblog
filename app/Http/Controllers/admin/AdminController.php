@@ -95,8 +95,6 @@ class AdminController extends Controller
         return back()->with('error', 'Please upload image');
     }
 
-
-
     public function Dashboard(Request $req)
     {
         return view('admin.dashboard');
@@ -169,6 +167,8 @@ class AdminController extends Controller
         if (count($categoryData) == 0) return redirect(ADMINURL . '/viewcategories');
 
         if ($option == 'delete') {
+            $categoryMapped = HelperController::checkCategoryMappedWithClient($actionId);
+            if(count($categoryMapped)) return back()->with('error','Cannot delete category due to mapped with client');
             $delete = deleteQuery($actionId, 'category_details', 'category_id');
             $notify = notification($delete);
             return redirect(ADMINURL . '/viewcategories')->with($notify['type'], 'Data Deleted Successfully');
@@ -211,6 +211,8 @@ class AdminController extends Controller
         if (count($clientData) == 0) return redirect(ADMINURL . '/viewclients');
 
         if ($option == 'delete') {
+            $clientGallery = HelperController::checkClientHasGallery($actionId);
+            if(count($clientGallery)) return back()->with('error','Cannot delete client due to client has gallery');
             $delete = deleteQuery($actionId, 'client_details', 'client_id');
             $notify = notification($delete);
             return redirect(ADMINURL . '/viewclients')->with($notify['type'], 'Data Deleted Successfully');
@@ -329,13 +331,14 @@ class AdminController extends Controller
 
         if (
             $formData['clients_gallery_client'] == '' || $formData['clients_gallery_category'] == '' || $formData['clients_gallery_date'] == '' ||
-            $formData['clients_gallery_location'] == '' || $formData['clients_gallery_budget'] == '' || $formData['clients_gallery_description'] == ''
+            $formData['clients_gallery_location'] == '' || $formData['clients_gallery_budget'] == '' || $formData['clients_gallery_description'] == '' ||
+            $req->input('clients_gallery_videos_name')[0] == ''
         ) {
             return back()->with('error', 'Please enter all mandatory fields');
         }
 
         $clientExist = HelperController::getClientGalleryByClientId($formData['clients_gallery_client']);
-        if (count($clientExist)) return back()->with('error', 'Client Already exist.Please select other client');
+        if (count($clientExist) && $req->input('clients_gallery_id') == '') return back()->with('error', 'Client Already exist.Please select other client');
 
         if (($req->input('clients_gallery_subcategory')) && count($req->input('clients_gallery_subcategory'))) {
             $formData['clients_gallery_subcategory'] = json_encode($req->input('clients_gallery_subcategory'));
@@ -424,13 +427,13 @@ class AdminController extends Controller
     {
         $formData = $req->except('_token','page_id','files');
 
-        if($formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' || 
-        $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' || 
+        if($formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' ||
+        $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' ||
         $formData['page_copyright'] == '' || $formData['page_content'] == '' ){
             return back()->with('error','Please Enter all mandatory fields');
         }
 
-       
+
         // if ($req->input('page_content') == '') return back()->with('error', 'Please Enter Page Content');
         // $formData = $req->only('page_content');
         $formData['page_name'] = decryption($req->input('page_name'));
@@ -468,12 +471,7 @@ class AdminController extends Controller
 
     public function SaveProductPageInfo(Request $req)
     {
-        if (
-            $req->input('product_content') == '' || $req->input('product_about') == '' || $req->input('product_techincal_profile') == '' ||
-            $req->input('product_joint_details') == '' || $req->input('product_colours_finishes') == ''
-        ) {
-            return back()->with('error', 'Please Enter all mandatory fields');
-        }
+
 
         if (!$req->hasFile('product_techincal_documents') && $req->input('product_id') == '') {
             return back()->with('error', 'Please Upload Technical Documents');
@@ -481,10 +479,20 @@ class AdminController extends Controller
 
         $formData = $req->except(['_token','product_id','files','editproduct_techincal_document1', 'editproduct_techincal_document2']);
 
-        if($formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' || 
-        $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' || 
+        echo '<pre>';
+        print_r($formData);
+        exit;
+        if (
+            $req->input('product_content') == '' || $req->input('product_about') == '' || $req->input('product_techincal_profile') == '' ||
+            $req->input('product_joint_details') == '' || $req->input('product_colours_finishes') == ''
+        ) {
+            return back()->with('error', 'Please Enter all mandatory fields');
+        }
+
+        if($formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' ||
+        $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' ||
         $formData['page_copyright'] == ''  ){
-            return back()->with('error','Please Enter all mandatory fields');
+            return back()->with('error','Please Enter all mandatory fields..');
         }
 
         $formData['product_pagename'] = decryption($req->input('product_pagename'));

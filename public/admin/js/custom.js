@@ -52,11 +52,11 @@ const addRow = () => {
     console.log($(".gallery_image").length);
     if (imagesLength < 10) {
         row += '<div class="form-group row">';
-        row +=
-            "<label class='col-sm-3 col-form-label'>Image" + (imagesLength + 1);
-        row += '<span class="label-danger">*</span></label>';
-        row +=
-            '<div class="col-sm-9"><input type="file" class="form-control mb-10 gallery_image" name="clients_gallery_images_name[]" value="" required></div></div>';
+        row += '<div class="col-sm-12">';
+        row += "<label class='col-sm-3 col-form-label'>Image" + (imagesLength + 1);
+        row += '</label>';
+        row += '<input type="file" class="form-control mb-10 gallery_image" name="clients_gallery_images_name[]" value="">';
+        row += '</div></div>';
         $(".add_image").append(row);
         console.log("row", row);
     } else {

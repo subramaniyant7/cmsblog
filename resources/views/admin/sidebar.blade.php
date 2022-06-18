@@ -71,21 +71,18 @@
                                         pageName()['ips'],pageName()['safety'],pageName()['doorsets']];
                     $bioClad = [pageName()['bclad'],pageName()['anti'],pageName()['hygenic'],pageName()['wall'],
                                         pageName()['ips'],pageName()['safety'],pageName()['doorsets']];
-                    try{
-                        if(in_array(decryption(request()->type),$aboutUs)){
-                            $about = 'menu-open';
-                        }
-                        if(in_array(decryption(request()->type),$pagesContent)){
-                            $pages = 'menu-open';
-                        }
-                        if(in_array(decryption(request()->type),$productContent)){
-                            $product = 'menu-open';
-                        }
-                        if(in_array(decryption(request()->type),$bioClad)){
-                            $bio = 'menu-open';
-                        }
-                    }catch(\Exception $e){
-                        $error = '';
+
+                    if(in_array(request()->type && decryption(request()->type),$aboutUs)){
+                        $about = 'menu-open';
+                    }
+                    if(in_array(request()->type && decryption(request()->type),$pagesContent)){
+                        $pages = 'menu-open';
+                    }
+                    if(in_array(request()->type && decryption(request()->type),$productContent)){
+                        $product = 'menu-open';
+                    }
+                    if(in_array(request()->type && decryption(request()->type),$bioClad)){
+                        $bio = 'menu-open';
                     }
                 @endphp
 
@@ -238,12 +235,32 @@
                             </ul>
 
                         </li>
+
                         <li class="nav-item">
-                            <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['pclad'])}}" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Printclad</p>
+                                <p>PrintClad <i class="fas fa-angle-left right"></i></p>
                             </a>
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['pclad'])}}"
+                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['pclad'] ? 'active' : ''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Printclad (Landing Page)</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ ADMINURL.'/actionproductpageinfo?type='.encryption(pageName()['pclad']).'&&page='.encryption(pageName()['photo']) }}"
+                                        class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['anti'] ? 'active' : ''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Photoclad</p>
+                                    </a>
+                                </li>
+                            </ul>
+
                         </li>
+
                         <li class="nav-item">
                             <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['kclad'])}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

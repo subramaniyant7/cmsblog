@@ -18,6 +18,7 @@
                 </div>
             </div>
         </section>
+        @include('admin.notification')
         <section class="content">
             <div class="container-fluid">
                 <div class="row">

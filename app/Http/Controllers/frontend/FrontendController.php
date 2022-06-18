@@ -32,6 +32,10 @@ class FrontendController extends Controller
     {
         $categories = FHelperController::getClientsCategory();
         $clients = FHelperController::getClients();
+        // echo '<pre>';
+        // print_r($categories);
+        // exit;
+        if(!count($categories) || !count($clients)) return view('frontend.404');
         return view('frontend.gallery', compact('clients', 'categories'));
     }
 
