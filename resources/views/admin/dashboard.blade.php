@@ -60,6 +60,28 @@
                     </div>
                 </div>
 
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>{{ count(getActiveRecord('sub_category')) }}</h3>
+                            <p>Sub Category</p>
+                        </div>
+
+                        <a href="{{ADMINURL.'/viewsubcategories'}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{ count(getActiveRecord('clients_gallery')) }}</h3>
+                            <p>Gallery</p>
+                        </div>
+
+                        <a href="{{ADMINURL.'/viewclientgallery'}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

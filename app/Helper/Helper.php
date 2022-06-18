@@ -96,7 +96,7 @@ function getSubCategoryById($id){
 function pageName(){
     $name = ['profile' => 'profile','who'=>'whoweare','vision'=> 'visionmission','why'=>'whyus','software' =>'software','medical'=>'medicalequipment',
             'bclad' =>'bioclad','pclad' =>'printclad','kclad' =>'kleenclad','faq'=>'faq','anti'=>'antimicrobialwallcladding','hygenic'=>'hygenicwallcladding',
-        'wall'=>'wallprotection','ips'=>'ips','safety'=>'safetyflooring','doorsets'=>'doorsets'];
+        'wall'=>'wallprotection','ips'=>'ips','safety'=>'safetyflooring','doorsets'=>'doorsets','director'=>'directormessage'];
     return $name;
 }
 

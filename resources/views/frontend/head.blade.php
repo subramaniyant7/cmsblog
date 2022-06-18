@@ -1,8 +1,8 @@
 @php
-    $title = 'GoHealthe'; 
+    $title = 'GoHealthe';
     $desc = $keywords = $abstract = $topic = $type = $author = $site = $copyright = '';
     if(isset($pageData)){
-        $title = $pageData['page_title'];
+        $title = $pageData['page_title'] != '' ? $pageData['page_title'] : $title;
         $desc = $pageData['page_desc'];
         $keywords = $pageData['page_keyword'];
         $abstract = $pageData['page_abstract'];
@@ -11,7 +11,7 @@
         $author = $pageData['page_author'];
         $site = $pageData['page_site'];
         $copyright = $pageData['page_copyright'];
-    }   
+    }
 @endphp
 <head>
     <!-- Required meta tags -->
@@ -26,7 +26,7 @@
     <meta name="author" content="{{$author}}" />
     <meta name="site" content="{{$site}}" />
     <meta name="copyright" content="{{$copyright}}" />
-    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ URL::asset('frontend/assets/css/bootstrap.min.css') }}">
     <!-- Animate CSS -->
