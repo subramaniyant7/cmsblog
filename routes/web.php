@@ -23,6 +23,7 @@ Route::get('/ourclients', [FrontendController::class, 'OurClients']);
 Route::get('/contactus', [FrontendController::class, 'ContactUs']);
 
 Route::get('/gallery', [FrontendController::class, 'Gallery']);
+Route::get('/downloads', [FrontendController::class, 'Downloads']);
 Route::get('/gallerydetails/{id}', [FrontendController::class, 'GalleryDetails']);
 Route::get('/{pagename}/pageview', [FrontendController::class, 'HandlePages']);
 Route::get('/{parentname}/products/{pagename}', [FrontendController::class, 'HandleProductPages']);

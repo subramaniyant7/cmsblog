@@ -14,10 +14,10 @@
                            <li><a href="{{ url(FRONTENDURL.'profile/pageview') }}">Profile</a></li>
                            <li><a href="{{ url(FRONTENDURL.'whoweare/pageview') }}">Who We Are</a></li>
                            <li><a href="{{ url(FRONTENDURL.'visionmission/pageview') }}">Vision & Mission</a></li>
-                           <li><a href="{{ url(FRONTENDURL.'profile/pageview') }}">Director Message</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'directormessage/pageview') }}">Director Message</a></li>
                            <li><a href="{{ url(FRONTENDURL.'whyus/pageview') }}">Why Us</a></li>
                            <li><a href="{{ url(FRONTENDURL.'ourclients') }}">Our Clients</a></li>
-                           <li><a href="{{ url(FRONTENDURL.'profile/pageview') }}">Downloads</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'downloads') }}">Downloads</a></li>
                        </ul>
                    </div>
                </div>
@@ -27,9 +27,10 @@
                        <h3 class="title">INSTALLATION</h3>
 
                        <ul>
-                           <li><a href="#">Wall Cladding</a></li>
-                           <li><a href="#">Floor Cladding</a></li>
-                           <li><a href="#">Construction By Specification</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'installation/products/wallcladding') }}">Wall Cladding</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'installation/products/floorcladding')}}">Floor Cladding</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'installation/products/constructionbyspecification')}}">Construction By Specification</a></li>
+
                        </ul>
                    </div>
                </div>
@@ -40,10 +41,10 @@
 
                        <ul>
 
-                           <li><a href="#">Design</a></li>
-                           <li><a href="#l">Develop</a></li>
-                           <li><a href="#">Deliver</a></li>
-                           <li><a href="#">Maintain</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'design/pageview') }}">Design</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'develop/pageview') }}">Develop</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'deliver/pageview') }}">Deliver</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'maintain/pageview') }}">Maintain</a></li>
                        </ul>
                    </div>
                </div>
@@ -52,13 +53,13 @@
                    <div class="single-footer">
                        <h3 class="title">PRODUCTS</h3>
                        <ul>
-                           <li><a href="#">Antimicrobial Wall Cladding</a></li>
-                           <li><a href="#">Wall Protection</a></li>
-                           <li><a href="#">Safety Flooring</a></li>
-                           <li><a href="#">Doorsets</a></li>
-                           <li><a href="#">Hygienic Wall Cladding</a></li>
-                           <li><a href="#">IPS</a></li>
-                           <li><a href="#">PhotoClad</a></li>
+                           <li><a href="{{url(FRONTENDURL.'bioclad/products/antimicrobialwallcladding')}}">Antimicrobial Wall Cladding</a></li>
+                           <li><a href="{{url(FRONTENDURL.'bioclad/products/wallprotection')}}">Wall Protection</a></li>
+                           <li><a href="{{url(FRONTENDURL.'bioclad/products/safetyflooring')}}">Safety Flooring</a></li>
+                           <li><a href="{{url(FRONTENDURL.'bioclad/products/doorsets')}}">Doorsets</a></li>
+                           <li><a href="{{url(FRONTENDURL.'bioclad/products/hygenicwallcladding')}}">Hygienic Wall Cladding</a></li>
+                           <li><a href="{{url(FRONTENDURL.'bioclad/products/ips')}}">IPS</a></li>
+                           <li><a href="{{url(FRONTENDURL.'printclad/products/photoclad')}}">PhotoClad</a></li>
                        </ul>
                    </div>
                </div>
@@ -69,12 +70,16 @@
            <div class="container">
                <div class="row">
                    <div class="col-lg-8 col-md-8">
-                       <p>{{date('Y')}} Copyrights &copy; All Rights Reserved Gohealthe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
-                        <a href="#">Privacy Policy</a> - <a href="#">Terms & Conditions</a> - <a href="{{ url(FRONTENDURL.'faq/pageview') }}">FAQ</a> - <a href="#">Sitemap</a></p>
+                       <p>{{date('Y')}} Copyrights &copy; All Rights Reserved Gohealthe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-
+                           <a href="{{url(FRONTENDURL.'privacypolicy/pageview')}}">Privacy Policy</a> - <a href="{{url(FRONTENDURL.'termsconditions/pageview')}}">Terms & Conditions</a> - <a href="{{ url(FRONTENDURL.'faq/pageview') }}">FAQ</a> - <a href="#">Sitemap</a>
+                       </p>
                    </div>
                </div>
            </div>
        </div>
+
+       <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+<div class="elfsight-app-791fea70-559f-4912-8fa1-48546bbf15e3"></div>
    </footer>
    <!-- End Footer Area -->
 
@@ -108,7 +113,7 @@
    <link href="{{ URL::asset('frontend/assets/css/skdslider.css') }}" rel="stylesheet">
    <script type="text/javascript">
        jQuery(document).ready(function() {
-          
+
            jQuery('#responsive').change(function() {
                $('#responsive_wrapper').width(jQuery(this).val());
                $(window).trigger('resize');

@@ -109,28 +109,28 @@
                                             <li><a href="{{ url(FRONTENDURL.'profile/pageview') }}">Profile</a></li>
                                             <li><a href="{{ url(FRONTENDURL.'whoweare/pageview') }}">Who We Are</a></li>
                                             <li><a href="{{ url(FRONTENDURL.'visionmission/pageview') }}">Vision & Mission</a></li>
-                                            <li><a href="{{ url(FRONTENDURL.'profile/pageview') }}">Director Message</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'directormessage/pageview') }}">Director Message</a></li>
                                             <li><a href="{{ url(FRONTENDURL.'whyus/pageview') }}">Why Us</a></li>
                                             <li><a href="{{ url(FRONTENDURL.'ourclients') }}">Our Clients</a></li>
-                                            <li><a href="{{ url(FRONTENDURL.'profile/pageview') }}">Downloads</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'downloads') }}">Downloads</a></li>
                                         </ul>
                                     </li>
 
-
+                                    
                                     <li><a href="#">Installation</a>
                                         <ul class="dropdown" style="width:270px;">
-                                            <li><a href="#">Wall Cladding</a></li>
-                                            <li><a href="#">Floor Cladding</a></li>
-                                            <li><a href="#">Construction By Specification</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'installation/products/wallcladding') }}">Wall Cladding</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'installation/products/floorcladding')}}">Floor Cladding</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'installation/products/constructionbyspecification')}}">Construction By Specification</a></li>
                                         </ul>
                                     </li>
 
                                     <li><a href="#">Projects</a>
                                         <ul class="dropdown">
-                                            <li><a href="#">Design</a></li>
-                                            <li><a href="#">Develop</a></li>
-                                            <li><a href="#">Deliver</a></li>
-                                            <li><a href="#">Maintain</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'design/pageview') }}">Design</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'develop/pageview') }}">Develop</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'deliver/pageview') }}">Deliver</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'maintain/pageview') }}">Maintain</a></li>
                                         </ul>
                                     </li>
 

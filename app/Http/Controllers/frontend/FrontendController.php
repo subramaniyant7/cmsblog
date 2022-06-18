@@ -28,6 +28,10 @@ class FrontendController extends Controller
         return view('frontend.faq');
     }
 
+    public function Downloads(){
+        return view('frontend.downloads');
+    }
+
     public function Gallery()
     {
         $categories = FHelperController::getClientsCategory();
@@ -65,7 +69,7 @@ class FrontendController extends Controller
     public function HandlePages($pagename)
     {
         $pageContent = HelperController::getPageByName($pagename);
-        if (!count($pageContent)) return redirect('/')->with('error', 'Invalid Action');
+        if (!count($pageContent)) return view('frontend.404');
         return view('frontend.pagerender', compact('pageContent'));
     }
 
@@ -78,16 +82,7 @@ class FrontendController extends Controller
         // print_r($pageContent);
         // exit;
 
-        // $at = [ 'hygenicwallcladding', 'wallprotection', 'ips', 'safetyflooring',  'doorsets'];
-        // foreach($at as $at){
-        //     $formData = ['product_pagename'=>'bioclad','product_subpagename'=>$at, 'product_content'=> $pageContent[0]->product_content,
-        //                 'product_about'=>$pageContent[0]->product_about,'product_techincal_profile'=>$pageContent[0]->product_techincal_profile,
-        //                 'product_techincal_documents'=>$pageContent[0]->product_techincal_documents,'product_joint_details'=>$pageContent[0]->product_joint_details,
-        //                 'product_colours_finishes'=>$pageContent[0]->product_colours_finishes];
-        //     insertQueryId('products', $formData);
-        // }
-
-        if (!count($pageContent)) return redirect('/')->with('error', 'Invalid Action');
+        if (!count($pageContent)) return view('frontend.404');
         return view('frontend.productpage', compact('pageContent'));
     }
 }
