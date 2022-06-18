@@ -85,7 +85,7 @@
                             $bio = 'menu-open';
                         }
                     }catch(\Exception $e){
-
+                        $error = '';
                     }
                 @endphp
 
