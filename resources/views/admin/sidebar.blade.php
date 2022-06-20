@@ -147,6 +147,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['ourteam']) }}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['ourteam'] ? 'active' : ''}}" name="{{ pageName()['profile']}}">
+                                    <i class="fas fa-book nav-icon"></i>
+                                    <p>Our Team</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['who'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['who'] ? 'active' : ''}}">
                                     <i class="fas fa-book nav-icon"></i>
                                     <p>Who We Are</p>
@@ -447,12 +453,7 @@
                                 </a>
                             </li>
                         
-                            <li class="nav-item">
-                                <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['medical'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['medical'] ? 'active' : ''}}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Medical Equipments</p>
-                                </a>
-                            </li>
+
                             <li class="nav-item">
                                 <a href="{{ ADMINURL.'/actionpageinfo?type='.encryption(pageName()['faq'])}}" class="nav-link {{ request()->type && decryption(request()->type)   == pageName()['faq'] ? 'active' : ''}}">
                                     <i class="far fa-circle nav-icon"></i>
