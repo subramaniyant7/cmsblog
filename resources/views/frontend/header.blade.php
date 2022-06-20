@@ -102,7 +102,7 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li class="active"><a href="{{ url(FRONTENDURL) }}">Home</a></li>
+                                    <!-- <li class="active"><a href="{{ url(FRONTENDURL) }}">Home</a></li> -->
 
                                     <li><a href="#">About Us</a>
                                         <ul class="dropdown">
@@ -116,6 +116,12 @@
                                         </ul>
                                     </li>
 
+                                    <li><a href="#">Innovation</a>
+                                        <ul class="dropdown" style="width:270px;">
+                                            <li><a href="{{ url(FRONTENDURL.'innovation/products/survivowellness') }}">Survivo Wellness</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'innovation/products/goggletech')}}">Goggle Tech</a></li>
+                                        </ul>
+                                    </li>
                                     
                                     <li><a href="#">Installation</a>
                                         <ul class="dropdown" style="width:270px;">
@@ -142,10 +148,19 @@
                                         </ul>
                                     </li>
 
+                                    <li><a href="#">Medical Equipments</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{{ url(FRONTENDURL.'otproducts/pageview') }}">OT Products</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'ivfproducts/pageview') }}">IVF Products</a></li>
+                                        </ul>
+                                    </li>
 
-                                    <li><a href="{{ url(FRONTENDURL.'medicalequipment/pageview') }}">Medical Equipments</a></li>
-
-                                    <li><a href="{{ url(FRONTENDURL.'software/pageview') }}">Software</a></li>
+                                    <li><a href="#">Software</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{{ url(FRONTENDURL.'software/products/lifewhisperer') }}">OT Products</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'software/products/fertiassist') }}">IVF Products</a></li>
+                                        </ul>
+                                    </li>
 
                                     <li><a href="{{ url(FRONTENDURL.'gallery') }}">Gallery</a></li>
 

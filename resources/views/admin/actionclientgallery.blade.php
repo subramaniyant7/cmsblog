@@ -30,7 +30,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12">
                                         <label class="col-sm-12 col-form-label">Category Name <span class="label-danger">*</span></label>
-                                        <select class="custom-select form-control" name="clients_gallery_category" required onchange="getCategoryClient(this.value)">
+                                        <select class="custom-select form-control" name="clients_gallery_category" required>
                                             <option value="">Select</option>
                                             @foreach (getActiveRecord('category_details') as $category)
                                             <option value="{{ $category->category_id }}" {{ isset($data[0]) && $data[0]->clients_gallery_category == $category->category_id ? 'selected' : '' }}>{{ $category->category_name }}</option>
@@ -113,7 +113,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <label class="col-sm-12 col-form-label">Budget <span class="label-danger">*</span></label>
+                                        <label class="col-sm-12 col-form-label">Total Area <span class="label-danger">*</span></label>
                                         <input type="text" class="form-control" name="clients_gallery_budget" required value="{{ isset($action) && $action == 'edit' ? $data[0]->clients_gallery_budget : old('clients_gallery_budget') }}">
                                     </div>
                                 </div>

@@ -22,52 +22,54 @@
             </div>
             <div class="col-lg-12 col-md-12">
                 <div class="map-box">
-                    <!-- Map Area -->
-                    <div id="map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15547.69206438254!2d80.1649518!3d13.0405721!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x328298beaa1ee890!2sGoHealthe%20Services%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1655475690449!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <!-- Map Area -->
+                            <div id="map">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15547.69206438254!2d80.1649518!3d13.0405721!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x328298beaa1ee890!2sGoHealthe%20Services%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1655475690449!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-                    </div>
-                    <!-- End Map Area -->
-
-                    <div class="contact-info">
-                        <div class="info-box">
-                            <div class="icon">
-                                <i class="fa fa-map-marker"></i>
                             </div>
-
-                            <div class="content">
-                                <h5>Address</h5>
-                                <p>#3, First Floor, 4th street Ganesh Nagar, <br>
-                                    GK Industrial Estate, <br>
-                                    Alappakam Main Road Porur, <br>
-                                    Chennai - 600 016 </p>
-                            </div>
+                            <!-- End Map Area -->
                         </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="contact-info" style="position:unset;">
+                                <div class="info-box">
+                                    <div class="icon">
+                                        <i class="fa fa-map-marker"></i>
+                                    </div>
 
-                        <div class="info-box">
-                            <div class="icon">
-                                <i class="fa fa-mobile"></i>
-                            </div>
+                                    <div class="content">
+                                        <h5>Address</h5>
+                                        <p>#3, First Floor, 4th street Ganesh Nagar, <br>
+                                            GK Industrial Estate, <br>
+                                            Alappakam Main Road Porur, <br>
+                                            Chennai - 600 016 </p>
+                                    </div>
+                                </div>
 
+                                <div class="info-box">
+                                    <div class="icon">
+                                        <i class="fa fa-mobile"></i>
+                                    </div>
 
+                                    <div class="content">
+                                        <h5>Phone</h5>
+                                        <p>Landline: <a href="mailto:+91 44 42810141 ">+91 44 42810141</a></p>
+                                        <p>Mobile: <a href="mailto:+91 94426 38379 ">+91 94426 38379</a></p>
+                                    </div>
+                                </div>
 
+                                <div class="info-box mb-0">
+                                    <div class="icon">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
 
-                            <div class="content">
-                                <h5>Phone</h5>
-                                <p>Landline: <a href="mailto:+91 44 42810141 ">+91 44 42810141</a></p>
-                                <p>Mobile: <a href="mailto:+91 94426 38379 ">+91 94426 38379</a></p>
-                            </div>
-                        </div>
+                                    <div class="content">
+                                        <h5>Email</h5>
+                                        <p><a href="mailto: admin@gohealthe.com"><span class="__cf_email__">admin@gohealthe.com </span></a></p>
 
-                        <div class="info-box mb-0">
-                            <div class="icon">
-                                <i class="fa fa-envelope"></i>
-                            </div>
-
-                            <div class="content">
-                                <h5>Email</h5>
-                                <p><a href="#"><span class="__cf_email__">admin@gohealthe.com </span></a></p>
-
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

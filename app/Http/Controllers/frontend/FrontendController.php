@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\frontend\FHelperController;
 use App\Http\Controllers\admin\HelperController;
+use Mail;
 
 class FrontendController extends Controller
 {
@@ -19,6 +20,17 @@ class FrontendController extends Controller
         if (!count($pageContent)) return view('frontend.404');
         return view('frontend.home', compact('pageContent','feature'));
     }
+
+    public function SendTestEmail(){
+        Mail::send([], [], function ($message) {
+            $message->to('tsubramaniyan2@gmail.com', 'Test')->subject('Test Email');
+            $message->from(getenv('MAIL_USERNAME'), 'admin');
+            $message->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
+          });
+
+          echo 'Email Sent';
+    }
+
 
     public function OurClients()
     {

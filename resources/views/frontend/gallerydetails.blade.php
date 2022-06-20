@@ -78,7 +78,7 @@
                             <li>Client Name: <span>{{ $clientGallery[0]->client_name }}</span></li>
                             <li>Location: <span>{{ $clientGallery[0]->clients_gallery_location }}</span></li>
                             <li>Categories: <span>{{ $clientGallery[0]->category_name }}</span></li>
-                            <li>Budget: <span>&#36;{{ $clientGallery[0]->clients_gallery_budget }}</span></li>
+                            <li>Total Area: <span>{{ $clientGallery[0]->clients_gallery_budget }}</span></li>
                         </ul>
 
                         <br><br>

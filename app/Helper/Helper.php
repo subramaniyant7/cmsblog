@@ -99,7 +99,8 @@ function pageName(){
             'wall'=>'wallprotection','ips'=>'ips','safety'=>'safetyflooring','doorsets'=>'doorsets','director'=>'directormessage',
             'photo'=>'photoclad','kclAnti'=>'kcladantimicrobialwallcladding','kclhygenic'=>'khygenicwallcladding','wallclad'=>'wallcladding','floorclad'=>'floorcladding',
             'construction'=>'constructionbyspecification','install'=>'installation','design'=>'design','develop'=>'develop','deliver'=>'deliver','maintain'=>'maintain',
-            'privacy'=>'privacypolicy','terms'=>'termsconditions','home'=>'home'
+            'privacy'=>'privacypolicy','terms'=>'termsconditions','home'=>'home','innov'=>'innovation','survivo'=>'survivowellness','goggle'=>'goggletech',
+            'otproduct'=>'otproducts','ivf'=>'ivfproducts','ferti'=>'fertiassist','life'=>'lifewhisperer','soft'=>'software'
         ];
     return $name;
 }

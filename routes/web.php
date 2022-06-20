@@ -18,6 +18,7 @@ use App\Http\Controllers\frontend\FrontendController;
 
 Route::get('/', [FrontendController::class, 'Home']);
 
+Route::get('/testemail', [FrontendController::class, 'SendTestEmail']);
 Route::get('/ourclients', [FrontendController::class, 'OurClients']);
 Route::get('/contactus', [FrontendController::class, 'ContactUs']);
 Route::post('/contactus', [FrontendController::class, 'SubmitContact']);
