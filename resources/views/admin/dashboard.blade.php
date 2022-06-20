@@ -27,6 +27,7 @@
         <div class="container-fluid">
             <div class="row">
 
+                 @if(Session::get('admin_role') == 1)
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
@@ -37,6 +38,7 @@
                         <a href="{{ADMINURL.'/viewadmin'}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
+                @endif
 
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-success">
@@ -49,6 +51,7 @@
                     </div>
                 </div>
 
+                @if(Session::get('admin_role') == 1)
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-warning">
                         <div class="inner">
@@ -59,6 +62,7 @@
                         <a href="{{ADMINURL.'/viewclients'}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
+                @endif
 
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-danger">
