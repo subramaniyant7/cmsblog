@@ -12,9 +12,9 @@
 
 
 
-<link href="{{ URL::asset(FRONTENDURL.'tools/style.css') }}" rel="stylesheet" type="text/css" media="screen" />
+<link href="{{ URL::asset('tools/style.css') }}" rel="stylesheet" type="text/css" media="screen" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<script type="text/javascript" src="{{ URL::asset('tools/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{ URL::asset('tools/jquery.min.js') }}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700|Roboto+Slab:700' rel='stylesheet' type='text/css'>
 <meta name="viewport" content="width=device-width, initial-scale = 1.0, user-scalable = no">
