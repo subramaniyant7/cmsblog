@@ -23,7 +23,7 @@
         @include('admin.notification')
         <div class="card">
             <div class="card-body login-card-body">
-                <form action="{{ ADMINURL . '/forgotpassword' }}" method="post">
+                <form action="{{ FRONTENDURL.'cmsadmin/forgotpassword' }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="User Name" name="admin_name" required>
