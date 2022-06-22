@@ -31,11 +31,12 @@ const getCategoryClient = (clientid) => {
             toastr.error("Something went wrong. Please try again");
         }
         console.log("clientid", clientid);
-        if (clientid == 1) {
-            $(".sub_category").show();
-        } else {
-            $(".sub_category").hide();
-        }
+        // if (clientid == 1) {
+        //     $(".sub_category").show();
+        // } else {
+        //     $(".sub_category").hide();
+        // }
+        $(".sub_category").show();
         $("select[name=clients_gallery_client]").html(option);
     });
 };

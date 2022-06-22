@@ -52,6 +52,8 @@ class AdminController extends Controller
                 });
                 return redirect(ADMINURL)->with('success', 'Please check your email we have sent new password');
             }catch(\Exception $e){
+                print_r($e->getMessage());
+                exit;
                 return back()->with('error', 'Something Went Wrong Please try again later...');
             }
         }

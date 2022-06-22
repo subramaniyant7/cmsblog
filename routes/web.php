@@ -16,8 +16,8 @@ use App\Http\Controllers\frontend\FrontendController;
 |
 */
 
-Route::get('/', [FrontendController::class, 'Home']);
-
+Route::get('/',  function () { return view('welcome'); } );
+Route::get('/home', [FrontendController::class, 'Home']);
 Route::get('/testemail', [FrontendController::class, 'SendTestEmail']);
 Route::get('/ourclients', [FrontendController::class, 'OurClients']);
 Route::get('/contactus', [FrontendController::class, 'ContactUs']);
@@ -44,10 +44,10 @@ Route::prefix(ADMINURL)->group(function () {
     Route::post('/feature', [AdminController::class, 'UpdateFeature']);
     Route::get('/social_media', [AdminController::class, 'GetSocialMediaLink']);
     Route::post('/social_media', [AdminController::class, 'UpdateSocialMediaLink']);
-    
+
     Route::get('/uploadimages', [AdminController::class, 'UploadImages']);
     Route::post('/saveuploadimages', [AdminController::class, 'SaveUploadImage']);
-    
+
     Route::get('/change_password', [AdminController::class, 'MyProfilePassword']);
     Route::post('/update_password', [AdminController::class, 'MyProfilePasswordUpdate']);
 
@@ -80,7 +80,7 @@ Route::prefix(ADMINURL)->group(function () {
     Route::post('/savepageinfo', [AdminController::class, 'SavePageInfo']);
     Route::get('/actionproductpageinfo', [AdminController::class, 'ActionProductPageInfo']);
     Route::post('/saveproductpageinfo', [AdminController::class, 'SaveProductPageInfo']);
-    
+
     // Ajax
     Route::post('/getClientCategory', [AjaxController::class, 'GetClientCategory']);
     Route::post('/deletecmsimage', [AjaxController::class, 'DeleteUploadImage']);

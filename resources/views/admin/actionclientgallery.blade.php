@@ -30,7 +30,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12">
                                         <label class="col-sm-12 col-form-label">Category Name <span class="label-danger">*</span></label>
-                                        <select class="custom-select form-control" name="clients_gallery_category" required>
+                                        <select class="custom-select form-control" name="clients_gallery_category" required onchange="getCategoryClient(this.value)">
                                             <option value="">Select</option>
                                             @foreach (getActiveRecord('category_details') as $category)
                                             <option value="{{ $category->category_id }}" {{ isset($data[0]) && $data[0]->clients_gallery_category == $category->category_id ? 'selected' : '' }}>{{ $category->category_name }}</option>
