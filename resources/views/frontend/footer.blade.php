@@ -28,16 +28,16 @@
                </div>
 
                <div class="col-lg-3 col-md-4">
-                <div class="single-footer">
+                <div class="single-footer" >
                        <h3 class="title">INNOVATION</h3>
                        <ul>
-                           <li><a href="{{ url(FRONTENDURL.'installation/products/wallcladding') }}">Wall Cladding</a></li>
-                           <li><a href="{{ url(FRONTENDURL.'installation/products/floorcladding')}}">Floor Cladding</a></li>
-                           <li><a href="{{ url(FRONTENDURL.'installation/products/constructionbyspecification')}}">Construction By Specification</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'innvovation/products/wallcladding') }}">Survivo Wellness</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'innvovation/products/floorcladding')}}">Goggle Tech</a></li>
+
 
                        </ul>
                    </div>
-                   <div class="single-footer" style="margin-top:10px;">
+                   <div class="single-footer" style="margin-top:40px;">
                        <h3 class="title">INSTALLATION</h3>
 
                        <ul>
