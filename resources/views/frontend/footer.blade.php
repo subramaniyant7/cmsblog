@@ -31,15 +31,12 @@
                    <div class="single-footer">
                        <h3 class="title">INNOVATION</h3>
                        <ul>
-                           <li><a href="{{ url(FRONTENDURL.'innvovation/products/wallcladding') }}">Survivo Wellness</a></li>
-                           <li><a href="{{ url(FRONTENDURL.'innvovation/products/floorcladding')}}">Goggle Tech</a></li>
-
-
+                           <li><a href="{{ url(FRONTENDURL.'innvovation/pagetype/survivowellness') }}">Survivo Wellness</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'innvovation/pagetype/goggletech')}}">Goggle Tech</a></li>
                        </ul>
                    </div>
                    <div class="single-footer" style="margin-top:40px;">
                        <h3 class="title">INSTALLATION</h3>
-
                        <ul>
                            <li><a href="{{ url(FRONTENDURL.'installation/products/wallcladding') }}">Wall Cladding</a></li>
                            <li><a href="{{ url(FRONTENDURL.'installation/products/floorcladding')}}">Floor Cladding</a></li>
@@ -52,9 +49,7 @@
                <div class="col-lg-3 col-md-4">
                    <div class="single-footer">
                        <h3 class="title">PROJECTS</h3>
-
                        <ul>
-
                            <li><a href="{{ url(FRONTENDURL.'design/pageview') }}">Design</a></li>
                            <li><a href="{{ url(FRONTENDURL.'develop/pageview') }}">Develop</a></li>
                            <li><a href="{{ url(FRONTENDURL.'deliver/pageview') }}">Deliver</a></li>
@@ -104,9 +99,9 @@
                <div class="row">
                    <div class="col-lg-10 col-md-10">
                        <p>{{date('Y')}} Copyrights &copy; All Rights Reserved Gohealthe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-
-                           <a href="{{url(FRONTENDURL.'downloads')}}">Downloads</a>  - <a href="{{url(FRONTENDURL.'privacypolicy/pageview')}}">Privacy Policy</a> 
-                           - <a href="{{url(FRONTENDURL.'termsconditions/pageview')}}">Terms & Conditions</a> 
-                            - <a href="{{ url(FRONTENDURL.'faq/pageview') }}">FAQ</a> 
+                           <a href="{{url(FRONTENDURL.'downloads')}}">Downloads</a>  - <a href="{{url(FRONTENDURL.'privacypolicy/pageview')}}">Privacy Policy</a>
+                           - <a href="{{url(FRONTENDURL.'termsconditions/pageview')}}">Terms & Conditions</a>
+                            - <a href="{{ url(FRONTENDURL.'faq/pageview') }}">FAQ</a>
                             - <a href="{{url(FRONTENDURL.'contactus')}}">Contact Us</a>
                             - <a href="#">Sitemap</a>
                        </p>
