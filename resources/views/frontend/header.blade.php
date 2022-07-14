@@ -158,8 +158,8 @@
 
                                     <li><a href="#">Software</a>
                                         <ul class="dropdown">
-                                            <li><a href="{{ url(FRONTENDURL.'software/products/lifewhisperer') }}">Life Whisperer</a></li>
-                                            <li><a href="{{ url(FRONTENDURL.'software/products/fertiassist') }}">Ferti Assist</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'software/pagetype/lifewhisperer') }}">Life Whisperer</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'software/pagetype/fertiassist') }}">Ferti Assist</a></li>
                                         </ul>
                                     </li>
 
