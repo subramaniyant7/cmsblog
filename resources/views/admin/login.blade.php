@@ -45,9 +45,9 @@
                     <div class="row">
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                            <div style="text-align:right;margin-top:1em;">
+                            <!-- <div style="text-align:right;margin-top:1em;">
                                 <a href="{{url(FRONTENDURL.'cmsadmin/forgotpassword')}}">Forgot Password</a>
-                            </div>
+                            </div> -->
                         </div>
 
 
