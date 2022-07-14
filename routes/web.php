@@ -29,6 +29,7 @@ Route::get('/downloads', [FrontendController::class, 'Downloads']);
 Route::get('/gallerydetails/{id}', [FrontendController::class, 'GalleryDetails']);
 Route::get('/{pagename}/pageview', [FrontendController::class, 'HandlePages']);
 Route::get('/{parentname}/products/{pagename}', [FrontendController::class, 'HandleProductPages']);
+Route::get('/{parentname}/pagetype/{pagename}', [FrontendController::class, 'HandlePageType']);
 
 
 Route::prefix(ADMINURL)->group(function () {
@@ -78,8 +79,17 @@ Route::prefix(ADMINURL)->group(function () {
 
     Route::get('/actionpageinfo', [AdminController::class, 'ActionPageInfo']);
     Route::post('/savepageinfo', [AdminController::class, 'SavePageInfo']);
+
     Route::get('/actionproductpageinfo', [AdminController::class, 'ActionProductPageInfo']);
     Route::post('/saveproductpageinfo', [AdminController::class, 'SaveProductPageInfo']);
+
+    Route::get('/actionpagetypeinfo', [AdminController::class, 'ActionPageTypeInfo']);
+    Route::post('/savepagetypeinfo', [AdminController::class, 'SavePageTypeInfo']);
+
+    // Downloads
+    Route::get('/downloads', [AdminController::class, 'ActionDownloads']);
+    Route::post('/downloads', [AdminController::class, 'SaveDownloads']);
+
 
     // Ajax
     Route::post('/getClientCategory', [AjaxController::class, 'GetClientCategory']);

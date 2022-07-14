@@ -121,4 +121,20 @@ class FrontendController extends Controller
         if (!count($pageContent)) return view('frontend.404');
         return view('frontend.productpage', compact('pageContent'));
     }
+
+    public function HandlePageType($parentname, $pagename)
+    {
+        $pageContent = HelperController::getPageTypeByName($pagename);
+
+        // echo '<pre>';
+
+        // print_r($pageContent);
+        // exit;
+
+        if (!count($pageContent)) return view('frontend.404');
+        return view('frontend.pagetype', compact('pageContent'));
+    }
+
+
+    
 }

@@ -107,7 +107,7 @@
                                     <li><a href="#">About Us</a>
                                         <ul class="dropdown">
                                             <li><a href="{{ url(FRONTENDURL.'profile/pageview') }}">Profile</a></li>
-                                            <li><a href="{{ url(FRONTENDURL.'ourteam/pageview') }}">OurTeam</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'ourteam/pageview') }}">Our Team</a></li>
                                             <li><a href="{{ url(FRONTENDURL.'whoweare/pageview') }}">Who We Are</a></li>
                                             <li><a href="{{ url(FRONTENDURL.'visionmission/pageview') }}">Vision & Mission</a></li>
                                             <li><a href="{{ url(FRONTENDURL.'directormessage/pageview') }}">Director Message</a></li>

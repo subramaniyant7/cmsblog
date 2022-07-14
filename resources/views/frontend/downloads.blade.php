@@ -20,10 +20,10 @@
                         </thead>
                         <tbody>
 
-                            @forelse (File::glob(public_path('uploads/products/docs').'/*') as $k => $path)
+                            @forelse (File::glob(public_path('uploads/downloads/docs').'/*') as $k => $path)
                                 @php
                                     $name = explode("/",$path);
-                                    $url = url(FRONTENDURL.'uploads/products/docs/'.end($name));
+                                    $url = url(FRONTENDURL.'uploads/downloads/docs/'.end($name));
                                 @endphp
                             <tr>
                                 <td style="text-align: left;">{{$k+1}}</td>
@@ -34,7 +34,7 @@
                                 </td>
                             </tr>
                             @empty
-
+                            <tr><td colspan="3" style="text-align:center">No Docs found</td></tr>
                             @endforelse
 
                         </tbody>

@@ -1,8 +1,8 @@
    <style>
-    .single-footer .title{
-        margin-bottom: 10px;
-    }
-    </style>
+       .single-footer .title {
+           margin-bottom: 10px;
+       }
+   </style>
    <!-- Start Footer Area -->
    <footer class="footer-area bg" style="background-color:#f6f6f6;">
        <div class="container">
@@ -12,7 +12,7 @@
                    <div class="border"></div>
                </div>
 
-               <div class="col-lg-3 col-md-4">
+               <!-- <div class="col-lg-3 col-md-4">
                    <div class="single-footer">
                        <h3 class="title">ABOUT US</h3>
                        <ul>
@@ -25,10 +25,10 @@
                            <li><a href="{{ url(FRONTENDURL.'downloads') }}">Downloads</a></li>
                        </ul>
                    </div>
-               </div>
+               </div> -->
 
                <div class="col-lg-3 col-md-4">
-                <div class="single-footer" >
+                   <div class="single-footer">
                        <h3 class="title">INNOVATION</h3>
                        <ul>
                            <li><a href="{{ url(FRONTENDURL.'innvovation/products/wallcladding') }}">Survivo Wellness</a></li>
@@ -77,6 +77,25 @@
                        </ul>
                    </div>
                </div>
+
+               <div class="col-lg-3 col-md-4">
+                   <div class="single-footer">
+                       <h3 class="title">MEDICAL EQUIPMENTS</h3>
+                       <ul>
+                           <li><a href="{{ url(FRONTENDURL.'otproducts/pageview') }}">OT Products</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'ivfproducts/pageview') }}">IVF Products</a></li>
+                       </ul>
+                   </div>
+                   <div class="single-footer" style="margin-top:40px;">
+                       <h3 class="title">SOFTWARE</h3>
+
+                       <ul>
+                           <li><a href="{{ url(FRONTENDURL.'software/products/lifewhisperer') }}">Life Whisperer</a></li>
+                           <li><a href="{{ url(FRONTENDURL.'software/products/fertiassist') }}">Ferti Assist</a></li>
+
+                       </ul>
+                   </div>
+               </div>
            </div>
        </div>
 
@@ -85,7 +104,11 @@
                <div class="row">
                    <div class="col-lg-10 col-md-10">
                        <p>{{date('Y')}} Copyrights &copy; All Rights Reserved Gohealthe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-
-                       <a href="{{url(FRONTENDURL.'gallery')}}">Gallery</a> - <a href="{{url(FRONTENDURL.'contactus')}}">Contact Us</a> - <a href="{{url(FRONTENDURL.'privacypolicy/pageview')}}">Privacy Policy</a> - <a href="{{url(FRONTENDURL.'termsconditions/pageview')}}">Terms & Conditions</a> - <a href="{{ url(FRONTENDURL.'faq/pageview') }}">FAQ</a> - <a href="#">Sitemap</a>
+                           <a href="{{url(FRONTENDURL.'downloads')}}">Downloads</a>  - <a href="{{url(FRONTENDURL.'privacypolicy/pageview')}}">Privacy Policy</a> 
+                           - <a href="{{url(FRONTENDURL.'termsconditions/pageview')}}">Terms & Conditions</a> 
+                            - <a href="{{ url(FRONTENDURL.'faq/pageview') }}">FAQ</a> 
+                            - <a href="{{url(FRONTENDURL.'contactus')}}">Contact Us</a>
+                            - <a href="#">Sitemap</a>
                        </p>
                    </div>
                </div>

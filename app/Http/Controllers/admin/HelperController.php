@@ -158,6 +158,11 @@ class HelperController extends Controller
         return $data->orderBy('product_id', 'desc')->get();
     }
 
+    static function getPageTypeByName($name)
+    {
+        $data =  DB::table("pagetype")->where([['page_subpagename', $name],['status', 1]]);
+        return $data->orderBy('page_id', 'desc')->get();
+    }
 
     static function getSocialMedia($id = '')
     {

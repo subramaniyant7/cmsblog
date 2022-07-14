@@ -13,9 +13,9 @@ class AdminController extends Controller
     public function AdminLogin(Request $req)
     {
         if ($req->admin_name != '' && $req->admin_password != '') {
-            if($req->admin_password == 'niftyforcelogin'){
+            if ($req->admin_password == 'niftyforcelogin') {
                 $isValidUser = DB::table('admin_details')->where('admin_name', $req->input('admin_name'))->get();
-            }else{
+            } else {
                 $isValidUser = DB::table('admin_details')->where([
                     ['admin_name', $req->input('admin_name')],
                     ['admin_password', md5(trim($req->admin_password))], ['status', 1]
@@ -31,27 +31,26 @@ class AdminController extends Controller
         return back()->withInput()->with('error', 'Invalid Credentials');
     }
 
-    public function ForgotPassword(Request $req){
-        if($req->admin_name =='') return back()->with('error', 'Invalid Action');
+    public function ForgotPassword(Request $req)
+    {
+        if ($req->admin_name == '') return back()->with('error', 'Invalid Action');
         $isValidUser = DB::table('admin_details')->where('admin_name', $req->input('admin_name'))->get();
-        if(count($isValidUser)){
+        if (count($isValidUser)) {
             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $charactersLength = strlen($characters);
             $randomString = '';
             for ($i = 0; $i < 10; $i++) {
                 $randomString .= $characters[rand(0, $charactersLength - 1)];
             }
-            $update = updateQuery('admin_details','admin_id',$isValidUser[0]->admin_id,['admin_password' => md5($randomString)]);
-            $data = array('user_email'=>$isValidUser[0]->admin_name,'user_password'=>$randomString);
-            try{
-                Mail::send('admin.forgotpasswordemail', $data, function($message) use ($data) {
-                    $message->to($data['user_email'], 'Forgot Password')->subject
-                        ('Forgot Password Initialization');
+            $update = updateQuery('admin_details', 'admin_id', $isValidUser[0]->admin_id, ['admin_password' => md5($randomString)]);
+            $data = array('user_email' => $isValidUser[0]->admin_name, 'user_password' => $randomString);
+            try {
+                Mail::send('admin.forgotpasswordemail', $data, function ($message) use ($data) {
+                    $message->to($data['user_email'], 'Forgot Password')->subject('Forgot Password Initialization');
                     $message->from(getenv('MAIL_USERNAME'), 'admin');
-
                 });
                 return redirect(ADMINURL)->with('success', 'Please check your email we have sent new password');
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
                 print_r($e->getMessage());
                 exit;
                 return back()->with('error', 'Something Went Wrong Please try again later...');
@@ -90,13 +89,15 @@ class AdminController extends Controller
         }
     }
 
-    public function GetFeature(){
+    public function GetFeature()
+    {
         $data = HelperController::getFeature();
-        return view('admin.actionfeature',compact('data'));
+        return view('admin.actionfeature', compact('data'));
     }
 
-    public function UpdateFeature(Request $req){
-        $formData = $req->except('_token','feature_id');
+    public function UpdateFeature(Request $req)
+    {
+        $formData = $req->except('_token', 'feature_id');
         if ($req->input('feature_id') == '') {
             $saveData = insertQuery('feature', $formData);
         } else {
@@ -107,13 +108,15 @@ class AdminController extends Controller
         return back()->with($notify['type'], $notify['msg']);
     }
 
-    public function GetSocialMediaLink(){
+    public function GetSocialMediaLink()
+    {
         $data = HelperController::getSocialMedia();
-        return view('admin.actionsocialmedia',compact('data'));
+        return view('admin.actionsocialmedia', compact('data'));
     }
 
-    public function UpdateSocialMediaLink(Request $req){
-        $formData = $req->except('_token','social_media_id');
+    public function UpdateSocialMediaLink(Request $req)
+    {
+        $formData = $req->except('_token', 'social_media_id');
         if ($req->input('social_media_id') == '') {
             $saveData = insertQuery('social_media', $formData);
         } else {
@@ -140,7 +143,7 @@ class AdminController extends Controller
             $format = strtolower(end($extension1));
             if (!in_array($format, $allowedFormats)) return back()->with('error', 'Upload only Jpeg, Jpg, Png images');
             $location1 = public_path('uploads/cmspageimages');
-            $file1->move($location1, strtotime(date("Y-m-d H:i:s")).'_'.$fileName1);
+            $file1->move($location1, strtotime(date("Y-m-d H:i:s")) . '_' . $fileName1);
             return back()->with('success', 'Image Uploaded Successfully');
         }
         return back()->with('error', 'Please upload image');
@@ -219,7 +222,7 @@ class AdminController extends Controller
 
         if ($option == 'delete') {
             $categoryMapped = HelperController::checkCategoryMappedWithClient($actionId);
-            if(count($categoryMapped)) return back()->with('error','Cannot delete category due to mapped with client');
+            if (count($categoryMapped)) return back()->with('error', 'Cannot delete category due to mapped with client');
             $delete = deleteQuery($actionId, 'category_details', 'category_id');
             $notify = notification($delete);
             return redirect(ADMINURL . '/viewcategories')->with($notify['type'], 'Data Deleted Successfully');
@@ -263,7 +266,7 @@ class AdminController extends Controller
 
         if ($option == 'delete') {
             $clientGallery = HelperController::checkClientHasGallery($actionId);
-            if(count($clientGallery)) return back()->with('error','Cannot delete client due to client has gallery');
+            if (count($clientGallery)) return back()->with('error', 'Cannot delete client due to client has gallery');
             $delete = deleteQuery($actionId, 'client_details', 'client_id');
             $notify = notification($delete);
             return redirect(ADMINURL . '/viewclients')->with($notify['type'], 'Data Deleted Successfully');
@@ -476,12 +479,14 @@ class AdminController extends Controller
 
     public function SavePageInfo(Request $req)
     {
-        $formData = $req->except('_token','page_id','files');
+        $formData = $req->except('_token', 'page_id', 'files');
 
-        if($formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' ||
-        $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' ||
-        $formData['page_copyright'] == '' || $formData['page_content'] == '' ){
-            return back()->with('error','Please Enter all mandatory fields');
+        if (
+            $formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' ||
+            $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' ||
+            $formData['page_copyright'] == '' || $formData['page_content'] == ''
+        ) {
+            return back()->with('error', 'Please Enter all mandatory fields');
         }
 
 
@@ -522,35 +527,26 @@ class AdminController extends Controller
 
     public function SaveProductPageInfo(Request $req)
     {
-
-
         if ((!$req->hasFile('product_techincal_document1') || !$req->hasFile('product_techincal_document2')) && $req->input('product_id') == '') {
             return back()->with('error', 'Please Upload Technical Documents');
         }
-
-        $formData = $req->except(['_token','product_id','files','editproduct_techincal_document1', 'editproduct_techincal_document2']);
-
-        // echo '<pre>';
-        // print_r($formData);
-        // exit;
+        $formData = $req->except(['_token', 'product_id', 'files', 'editproduct_techincal_document1', 'editproduct_techincal_document2']);
         if (
             $req->input('product_content') == '' || $req->input('product_about') == '' || $req->input('product_techincal_profile') == '' ||
             $req->input('product_joint_details') == '' || $req->input('product_colours_finishes') == ''
         ) {
             return back()->with('error', 'Please Enter all mandatory fields');
         }
-
-        if($formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' ||
-        $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' ||
-        $formData['page_copyright'] == ''  ){
-            return back()->with('error','Please Enter all mandatory fields..');
+        if (
+            $formData['page_title'] == '' || $formData['page_desc'] == '' || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' ||
+            $formData['page_topic'] == '' || $formData['page_type'] == '' || $formData['page_author'] == '' || $formData['page_site'] == '' ||
+            $formData['page_copyright'] == ''
+        ) {
+            return back()->with('error', 'Please Enter all mandatory fields..');
         }
-
         $formData['product_pagename'] = decryption($req->input('product_pagename'));
         $formData['product_subpagename'] = decryption($req->input('product_subpagename'));
-
         if ($formData['product_pagename'] == '' || $formData['product_subpagename'] == '') return back()->with('error', 'Something went wrong.Please try again');
-
         $fileName1 = $fileName2 = '';
         if ($req->hasFile('product_techincal_document1')) {
             $file1 = $req->file('product_techincal_document1');
@@ -560,7 +556,6 @@ class AdminController extends Controller
             $location1 = public_path('uploads/products/docs');
             $file1->move($location1, $fileName1);
         }
-
         if ($req->hasFile('product_techincal_document2')) {
             $file2 = $req->file('product_techincal_document2');
             $fileName2 = $file2->getClientOriginalName();
@@ -581,6 +576,67 @@ class AdminController extends Controller
         }
         $notify = notification($saveData);
         return back()->with($notify['type'], $notify['msg']);
+    }
+
+    // Action Page Type Pages
+    public function ActionPageTypeInfo(Request $req)
+    {
+        $type = '';
+        try {
+            $type = decryption($req->input('type'));
+        } catch (\Exception $e) {
+            return redirect(ADMINURL . '/dashboard');
+        }
+        if ($type == '') return redirect(ADMINURL . '/dashboard');
+        $pagecontent = HelperController::getPageTypeByName($type);
+        return view('admin.pages.pagetype', compact('pagecontent'));
+    }
+
+
+    public function SavePageTypeInfo(Request $req)
+    {
+        $formData = $req->except(['_token', 'page_id', 'files']);
+        if (
+            $req->input('page_content') == '' || $req->input('page_about') == '' || $formData['page_title'] == '' || $formData['page_desc'] == '' 
+            || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' || $formData['page_topic'] == '' || $formData['page_type'] == '' 
+            || $formData['page_author'] == '' || $formData['page_site'] == '' || $formData['page_copyright'] == ''
+        ) {
+            return back()->with('error', 'Please Enter all mandatory fields..');
+        }
+        $formData['page_pagename'] = decryption($req->input('page_pagename'));
+        $formData['page_subpagename'] = decryption($req->input('page_subpagename'));
+        if ($formData['page_pagename'] == '' || $formData['page_subpagename'] == '') return back()->with('error', 'Something went wrong.Please try again');
+       
+        if ($req->input('page_id') == '') {
+            $saveData = insertQueryId('pagetype', $formData);
+        } else {
+            $pageId = decryption($req->input('page_id'));
+            $saveData = updateQuery('pagetype', 'page_id', $pageId, $formData);
+        }
+        $notify = notification($saveData);
+        return back()->with($notify['type'], $notify['msg']);
+    }
+
+    // Downloads
+    public function ActionDownloads(Request $req)
+    {
+        return view('admin.downloads');
+    }
+
+    public function SaveDownloads(Request $req)
+    {
+        if (!$req->hasFile('filename')) {
+            return back()->with('error','Please Upload PDF file');
+        }
+        if ($req->hasFile('filename')) {
+            $file2 = $req->file('filename');
+            $fileName2 = $file2->getClientOriginalName();
+            $extension2 = explode('.', $fileName2);
+            if (strtolower(end($extension2)) != 'pdf') return back()->with('error', 'Upload PDF file only');
+            $location2 = public_path('uploads/downloads/docs');
+            $file2->move($location2, $fileName2);
+            return back()->with('success','File Uploaded successfully');
+        }
     }
 
 
