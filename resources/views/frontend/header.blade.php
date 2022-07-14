@@ -119,11 +119,11 @@
 
                                     <li><a href="#">Innovation</a>
                                         <ul class="dropdown" style="width:270px;">
-                                            <li><a href="{{ url(FRONTENDURL.'innovation/products/survivowellness') }}">Survivo Wellness</a></li>
-                                            <li><a href="{{ url(FRONTENDURL.'innovation/products/goggletech')}}">Goggle Tech</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'innovation/pagetype/survivowellness') }}">Survivo Wellness</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'innovation/pagetype/goggletech')}}">Goggle Tech</a></li>
                                         </ul>
                                     </li>
-                                    
+
                                     <li><a href="#">Installation</a>
                                         <ul class="dropdown" style="width:270px;">
                                             <li><a href="{{ url(FRONTENDURL.'installation/products/wallcladding') }}">Wall Cladding</a></li>
