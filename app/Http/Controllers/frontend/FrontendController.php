@@ -87,6 +87,9 @@ class FrontendController extends Controller
     public function Downloads()
     {
         $docCategory = FHelperController::getDocCategory();
+        if(count($docCategory) == 0){
+            return view('frontend.404');
+        }
         return view('frontend.doccategory', compact('docCategory'));
     }
 
