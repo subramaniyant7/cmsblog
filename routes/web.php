@@ -16,8 +16,9 @@ use App\Http\Controllers\frontend\FrontendController;
 |
 */
 
-Route::get('/',  function () { return view('welcome'); } );
-Route::get('/home', [FrontendController::class, 'Home']);
+// Route::get('/',  function () { return view('welcome'); } );
+// Route::get('/home', [FrontendController::class, 'Home']);
+Route::get('/', [FrontendController::class, 'Home']);
 Route::get('/testemail', [FrontendController::class, 'SendTestEmail']);
 Route::get('/ourclients', [FrontendController::class, 'OurClients']);
 Route::get('/contactus', [FrontendController::class, 'ContactUs']);
