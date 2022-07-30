@@ -40,60 +40,76 @@ Route::prefix(ADMINURL)->group(function () {
         Route::post('/login', [AdminController::class, 'AdminLogin']);
     });
 
-    Route::get('/dashboard', [AdminController::class, 'Dashboard'])->name('dashboard');
-    Route::get('/feature', [AdminController::class, 'GetFeature']);
-    Route::post('/feature', [AdminController::class, 'UpdateFeature']);
-    Route::get('/social_media', [AdminController::class, 'GetSocialMediaLink']);
-    Route::post('/social_media', [AdminController::class, 'UpdateSocialMediaLink']);
+    Route::middleware(['adminloggedinvalidate'])->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'Dashboard'])->name('dashboard');
+        Route::get('/feature', [AdminController::class, 'GetFeature']);
+        Route::post('/feature', [AdminController::class, 'UpdateFeature']);
+        Route::get('/social_media', [AdminController::class, 'GetSocialMediaLink']);
+        Route::post('/social_media', [AdminController::class, 'UpdateSocialMediaLink']);
 
-    Route::get('/uploadimages', [AdminController::class, 'UploadImages']);
-    Route::post('/saveuploadimages', [AdminController::class, 'SaveUploadImage']);
+        Route::get('/uploadimages', [AdminController::class, 'UploadImages']);
+        Route::post('/saveuploadimages', [AdminController::class, 'SaveUploadImage']);
 
-    Route::get('/change_password', [AdminController::class, 'MyProfilePassword']);
-    Route::post('/update_password', [AdminController::class, 'MyProfilePasswordUpdate']);
+        Route::get('/change_password', [AdminController::class, 'MyProfilePassword']);
+        Route::post('/update_password', [AdminController::class, 'MyProfilePasswordUpdate']);
 
-    Route::get('/viewadmin', [AdminController::class, 'ViewAdmin'])->name('viewadmin');
-    Route::get('/manageadmin', [AdminController::class, 'ManageAdmin'])->name('manageadmin');
-    Route::get('/actionadmin/{option}/{id}', [AdminController::class, 'ActionAdmin']);
-    Route::post('/saveadmindetails', [AdminController::class, 'SaveAdminDetails'])->name('createadmin');
+        Route::get('/viewadmin', [AdminController::class, 'ViewAdmin'])->name('viewadmin');
+        Route::get('/manageadmin', [AdminController::class, 'ManageAdmin'])->name('manageadmin');
+        Route::get('/actionadmin/{option}/{id}', [AdminController::class, 'ActionAdmin']);
+        Route::post('/saveadmindetails', [AdminController::class, 'SaveAdminDetails'])->name('createadmin');
 
-    Route::get('/viewcategories', [AdminController::class, 'ViewCategories']);
-    Route::get('/managecategory', [AdminController::class, 'ManageCategory']);
-    Route::get('/actioncategory/{option}/{id}', [AdminController::class, 'ActionCategory']);
-    Route::post('/savecategorydetails', [AdminController::class, 'SaveCategoryDetails']);
+        Route::get('/viewcategories', [AdminController::class, 'ViewCategories']);
+        Route::get('/managecategory', [AdminController::class, 'ManageCategory']);
+        Route::get('/actioncategory/{option}/{id}', [AdminController::class, 'ActionCategory']);
+        Route::post('/savecategorydetails', [AdminController::class, 'SaveCategoryDetails']);
 
-    Route::get('/viewsubcategories', [AdminController::class, 'ViewSubCategories']);
-    Route::get('/managesubcategory', [AdminController::class, 'ManageSubCategory']);
-    Route::get('/actionsubcategory/{option}/{id}', [AdminController::class, 'ActionSubCategory']);
-    Route::post('/savesubcategorydetails', [AdminController::class, 'SaveSubCategoryDetails']);
+        Route::get('/viewsubcategories', [AdminController::class, 'ViewSubCategories']);
+        Route::get('/managesubcategory', [AdminController::class, 'ManageSubCategory']);
+        Route::get('/actionsubcategory/{option}/{id}', [AdminController::class, 'ActionSubCategory']);
+        Route::post('/savesubcategorydetails', [AdminController::class, 'SaveSubCategoryDetails']);
 
-    Route::get('/viewclients', [AdminController::class, 'ViewClients']);
-    Route::get('/manageclient', [AdminController::class, 'ManageClient']);
-    Route::get('/actionclient/{option}/{id}', [AdminController::class, 'ActionClient']);
-    Route::post('/saveclientdetails', [AdminController::class, 'SaveClientDetails']);
+        Route::get('/viewclients', [AdminController::class, 'ViewClients']);
+        Route::get('/manageclient', [AdminController::class, 'ManageClient']);
+        Route::get('/actionclient/{option}/{id}', [AdminController::class, 'ActionClient']);
+        Route::post('/saveclientdetails', [AdminController::class, 'SaveClientDetails']);
 
-    Route::get('/viewclientgallery', [AdminController::class, 'ViewClientGallery']);
-    Route::get('/manageclientgallery', [AdminController::class, 'ManageClientGallery']);
-    Route::get('/actionclientgallery/{option}/{id}', [AdminController::class, 'ActionClientGallery']);
-    Route::post('/saveclientgallerydetails', [AdminController::class, 'SaveClientGalleryDetails']);
-
-    Route::get('/actionpageinfo', [AdminController::class, 'ActionPageInfo']);
-    Route::post('/savepageinfo', [AdminController::class, 'SavePageInfo']);
-
-    Route::get('/actionproductpageinfo', [AdminController::class, 'ActionProductPageInfo']);
-    Route::post('/saveproductpageinfo', [AdminController::class, 'SaveProductPageInfo']);
-
-    Route::get('/actionpagetypeinfo', [AdminController::class, 'ActionPageTypeInfo']);
-    Route::post('/savepagetypeinfo', [AdminController::class, 'SavePageTypeInfo']);
-
-    // Downloads
-    Route::get('/downloads', [AdminController::class, 'ActionDownloads']);
-    Route::post('/downloads', [AdminController::class, 'SaveDownloads']);
+        Route::get('/viewclientgallery', [AdminController::class, 'ViewClientGallery']);
+        Route::get('/manageclientgallery', [AdminController::class, 'ManageClientGallery']);
+        Route::get('/actionclientgallery/{option}/{id}', [AdminController::class, 'ActionClientGallery']);
+        Route::post('/saveclientgallerydetails', [AdminController::class, 'SaveClientGalleryDetails']);
 
 
-    // Ajax
-    Route::post('/getClientCategory', [AjaxController::class, 'GetClientCategory']);
-    Route::post('/deletecmsimage', [AjaxController::class, 'DeleteUploadImage']);
+        Route::get('/viewdoccategories', [AdminController::class, 'ViewDocCategories']);
+        Route::get('/managedoccategory', [AdminController::class, 'ManageDocCategory']);
+        Route::get('/actiondoccategory/{option}/{id}', [AdminController::class, 'ActionDocCategory']);
+        Route::post('/savedoccategorydetails', [AdminController::class, 'SaveDocCategoryDetails']);
 
-    Route::get('/logout', [AdminController::class, 'AdminLogout']);
+
+        Route::get('/viewdocuments', [AdminController::class, 'ViewDocument']);
+        Route::get('/managedocument', [AdminController::class, 'ManageDocument']);
+        Route::get('/actiondocument/{option}/{id}', [AdminController::class, 'ActionDocument']);
+        Route::post('/savedocument', [AdminController::class, 'SaveDocumentDetails']);
+
+
+        Route::get('/actionpageinfo', [AdminController::class, 'ActionPageInfo']);
+        Route::post('/savepageinfo', [AdminController::class, 'SavePageInfo']);
+
+        Route::get('/actionproductpageinfo', [AdminController::class, 'ActionProductPageInfo']);
+        Route::post('/saveproductpageinfo', [AdminController::class, 'SaveProductPageInfo']);
+
+        Route::get('/actionpagetypeinfo', [AdminController::class, 'ActionPageTypeInfo']);
+        Route::post('/savepagetypeinfo', [AdminController::class, 'SavePageTypeInfo']);
+
+        // Downloads
+        Route::get('/downloads', [AdminController::class, 'ActionDownloads']);
+        Route::post('/downloads', [AdminController::class, 'SaveDownloads']);
+
+
+        // Ajax
+        Route::post('/getClientCategory', [AjaxController::class, 'GetClientCategory']);
+        Route::post('/deletecmsimage', [AjaxController::class, 'DeleteUploadImage']);
+
+        Route::get('/logout', [AdminController::class, 'AdminLogout']);
+    });
+
 });

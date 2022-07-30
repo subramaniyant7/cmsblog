@@ -34,6 +34,28 @@ class HelperController extends Controller
         return $data->orderBy('category_id', 'desc')->get();
     }
 
+    static function getDocCategories($id = '')
+    {
+        $data =  DB::table("doc_category")
+            ->select(
+                "doc_category.*",
+                DB::raw("(SELECT admin_name FROM admin_details WHERE doc_category_created_by = admin_details.admin_id) as created_name"),
+            );
+        if ($id != '') $data->where('doc_category_id', $id);
+        return $data->orderBy('doc_category_id', 'desc')->get();
+    }
+
+    static function getDocuments($id = '')
+    {
+        $data =  DB::table("documents")
+            ->join('doc_category', 'documents.document_category', '=', 'doc_category.doc_category_id')
+            ->select('documents.*', 'doc_category.doc_category_name as category_name');
+        if ($id != '') {
+            $data->where('documents.document_id', $id);
+        }
+        return $data->orderBy('documents.document_id', 'desc')->get();
+    }
+
     static function checkCategoryMappedWithClient($id)
     {
         return DB::table("client_details")->where('client_category', $id)->orderBy('client_id', 'desc')->get();

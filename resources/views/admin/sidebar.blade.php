@@ -502,7 +502,16 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ ADMINURL . '/downloads' }}" class="nav-link {{ request()->segment(2) == 'downloads' ? 'active' : '' }}">
+                    <a href="{{ ADMINURL . '/viewdoccategories' }}" class="nav-link {{ request()->segment(2) == 'viewdoccategories' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-list-alt"></i>
+                        <p>
+                            Download Category
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ ADMINURL . '/viewdocuments' }}" class="nav-link {{ request()->segment(2) == 'downloads' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-download"></i>
                         <p>
                             Downloads

@@ -463,6 +463,119 @@ class AdminController extends Controller
         return redirect(ADMINURL . '/viewclientgallery')->with($notify['type'], $notify['msg']);
     }
 
+    // Document Categories
+    public function ViewDocCategories()
+    {
+        $categoryDetails = HelperController::getDocCategories();
+        return view('admin.viewdoccategory', compact('categoryDetails'));
+    }
+
+    public function ManageDocCategory()
+    {
+        return view('admin.actiondoccategory');
+    }
+
+    public function ActionDocCategory($option, $id)
+    {
+        $actionId = decryption($id);
+        $categoryData = HelperController::getDocCategories($actionId);
+        if (count($categoryData) == 0) return redirect(ADMINURL . '/viewdoccategories');
+
+        if ($option == 'delete') {
+            $delete = deleteQuery($actionId, 'doc_category', 'doc_category_id');
+            $notify = notification($delete);
+            return redirect(ADMINURL . '/viewdoccategories')->with($notify['type'], 'Data Deleted Successfully');
+        }
+
+        return view('admin.actiondoccategory', ['action' => $option, 'data' => $categoryData]);
+    }
+
+    public function SaveDocCategoryDetails(Request $req)
+    {
+        $formData =  $req->except(['_token', 'doc_category_id', 'edit_category_img']);
+        $fileName = '';
+        if ($req->hasFile('doc_category_img')) {
+            $file1 = $req->file('doc_category_img');
+            $fileName = $file1->getClientOriginalName();
+            $extension1 = explode('.', $fileName);
+            $allowedFormats = ['jpeg', 'jpg', 'png'];
+            $format = strtolower(end($extension1));
+            if (!in_array($format, $allowedFormats)) return back()->with('error', 'Upload only Jpeg, Jpg, Png images');
+            $location1 = public_path('uploads/documents/image');
+            $fileName = strtotime(date("Y-m-d H:i:s")) . '_' . $fileName;
+            $file1->move($location1,$fileName);
+        }
+        $formData['doc_category_img'] = $fileName != '' ? $fileName : $req->input('edit_category_img');
+        if ($req->input('doc_category_id') == '') {
+            $formData['doc_category_created_by'] =  $req->session()->get('admin_id');
+            $saveData = insertQueryId('doc_category', $formData);
+        } else {
+            $saveData = updateQuery('doc_category', 'doc_category_id', decryption($req->input('doc_category_id')), $formData);
+        }
+        $notify = notification($saveData);
+        return redirect(ADMINURL . '/viewdoccategories')->with($notify['type'], $notify['msg']);
+    }
+
+
+    // Document Categories
+    public function ViewDocument()
+    {
+        $documents = HelperController::getDocuments();
+        return view('admin.viewdocument', compact('documents'));
+    }
+
+    public function ManageDocument()
+    {
+        return view('admin.actiondocument');
+    }
+
+    public function ActionDocument($option, $id)
+    {
+        $actionId = decryption($id);
+        $categoryData = HelperController::getDocuments($actionId);
+        if (count($categoryData) == 0) return redirect(ADMINURL . '/viewdocuments');
+
+        if ($option == 'delete') {
+            $delete = deleteQuery($actionId, 'documents', 'document_id');
+            $notify = notification($delete);
+            return redirect(ADMINURL . '/viewdocuments')->with($notify['type'], 'Data Deleted Successfully');
+        }
+
+        return view('admin.actiondocument', ['action' => $option, 'data' => $categoryData]);
+    }
+
+    public function SaveDocumentDetails(Request $req)
+    {
+        $formData =  $req->except(['_token', 'document_id', 'edit_document_name']);
+        if ($req->input('document_category') == '' || $req->input('document_desc') == '') {
+            return back()->with('error', 'Please enter all mandatory fields');
+        }
+        $fileName = '';
+        if ($req->hasFile('document_name')) {
+            $file2 = $req->file('document_name');
+            $fileName = $file2->getClientOriginalName();
+            $extension2 = explode('.', $fileName);
+            if (strtolower(end($extension2)) != 'pdf') return back()->with('error', 'Upload PDF file only');
+            $location2 = public_path('uploads/documents/docs');
+            $file2->move($location2, $fileName);
+        }
+
+        $formData['document_name'] = $fileName != '' ? $fileName : $req->input('edit_document_name');
+
+        if ($req->input('document_id') == '') {
+            if (!$req->hasFile('document_name')) {
+                return back()->with('error', 'Please upload document');
+            }
+            $saveData = insertQueryId('documents', $formData);
+        } else {
+            $galleryId = decryption($req->input('document_id'));
+            $saveData = updateQuery('documents', 'document_id', $galleryId, $formData);
+        }
+
+        $notify = notification($saveData);
+        return redirect(ADMINURL . '/viewdocuments')->with($notify['type'], $notify['msg']);
+    }
+
     // Action Pages
     public function ActionPageInfo(Request $req)
     {
@@ -597,8 +710,8 @@ class AdminController extends Controller
     {
         $formData = $req->except(['_token', 'page_id', 'files']);
         if (
-            $req->input('page_content') == '' || $req->input('page_about') == '' || $formData['page_title'] == '' || $formData['page_desc'] == '' 
-            || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' || $formData['page_topic'] == '' || $formData['page_type'] == '' 
+            $req->input('page_content') == '' || $req->input('page_about') == '' || $formData['page_title'] == '' || $formData['page_desc'] == ''
+            || $formData['page_keyword'] == '' || $formData['page_abstract'] == '' || $formData['page_topic'] == '' || $formData['page_type'] == ''
             || $formData['page_author'] == '' || $formData['page_site'] == '' || $formData['page_copyright'] == ''
         ) {
             return back()->with('error', 'Please Enter all mandatory fields..');
@@ -606,7 +719,7 @@ class AdminController extends Controller
         $formData['page_pagename'] = decryption($req->input('page_pagename'));
         $formData['page_subpagename'] = decryption($req->input('page_subpagename'));
         if ($formData['page_pagename'] == '' || $formData['page_subpagename'] == '') return back()->with('error', 'Something went wrong.Please try again');
-       
+
         if ($req->input('page_id') == '') {
             $saveData = insertQueryId('pagetype', $formData);
         } else {
@@ -626,7 +739,7 @@ class AdminController extends Controller
     public function SaveDownloads(Request $req)
     {
         if (!$req->hasFile('filename')) {
-            return back()->with('error','Please Upload PDF file');
+            return back()->with('error', 'Please Upload PDF file');
         }
         if ($req->hasFile('filename')) {
             $file2 = $req->file('filename');
@@ -635,7 +748,7 @@ class AdminController extends Controller
             if (strtolower(end($extension2)) != 'pdf') return back()->with('error', 'Upload PDF file only');
             $location2 = public_path('uploads/downloads/docs');
             $file2->move($location2, $fileName2);
-            return back()->with('success','File Uploaded successfully');
+            return back()->with('success', 'File Uploaded successfully');
         }
     }
 
