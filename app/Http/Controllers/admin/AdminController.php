@@ -281,7 +281,7 @@ class AdminController extends Controller
 
         if ($req->hasFile('client_logo')) {
             $file = $req->file('client_logo');
-            $destinationPath = 'uploads/clients';
+            $destinationPath = public_path('uploads/clients');
             $fileName = $file->getClientOriginalName();
             $fileExtension = explode('.', $fileName);
 
