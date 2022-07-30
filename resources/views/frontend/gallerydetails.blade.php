@@ -74,7 +74,7 @@
                         <h3 class="title">Project Information</h3>
                         <img src="{{ URL::asset('uploads/clients/'.$clientGallery[0]->client_logo) }}"><br><br>
                         <ul>
-                            <li>Date: <span>{{ date('jS F, Y', strtotime($clientGallery[0]->clients_gallery_date)) }}</span></li>
+                            <!-- <li>Date: <span>{{ date('jS F, Y', strtotime($clientGallery[0]->clients_gallery_date)) }}</span></li> -->
                             <li>Client Name: <span>{{ $clientGallery[0]->client_name }}</span></li>
                             <li>Location: <span>{{ $clientGallery[0]->clients_gallery_location }}</span></li>
                             <li>Categories: <span>{{ $clientGallery[0]->category_name }}</span></li>

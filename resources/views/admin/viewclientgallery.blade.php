@@ -39,7 +39,7 @@
                                         <th>Category Name</th>
                                         <th>Sub-Category Name</th>
                                         <th>Location</th>
-                                        <th>Budget</th>
+                                        <th>Total Area</th>
                                         <th>Created By</th>
                                         <th>Status</th>
                                         <th>Action</th>

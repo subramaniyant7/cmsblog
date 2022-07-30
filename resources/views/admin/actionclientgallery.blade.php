@@ -97,12 +97,12 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <div class="col-sm-12">
                                         <label class="col-sm-12 col-form-label">Date <span class="label-danger">*</span></label>
                                         <input type="date" class="form-control" name="clients_gallery_date" required value="{{ isset($action) && $action == 'edit' ? $data[0]->clients_gallery_date : old('clients_gallery_date') }}">
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group row">
                                     <div class="col-sm-12">

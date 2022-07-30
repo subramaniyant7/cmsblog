@@ -26,6 +26,7 @@ Route::post('/enquiry', [FrontendController::class, 'Enquiry']);
 
 Route::get('/gallery', [FrontendController::class, 'Gallery']);
 Route::get('/downloads', [FrontendController::class, 'Downloads']);
+Route::get('/viewdocuments/{id}', [FrontendController::class, 'ViewDocuments']);
 Route::get('/gallerydetails/{id}', [FrontendController::class, 'GalleryDetails']);
 Route::get('/{pagename}/pageview', [FrontendController::class, 'HandlePages']);
 Route::get('/{parentname}/products/{pagename}', [FrontendController::class, 'HandleProductPages']);

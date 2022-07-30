@@ -126,9 +126,9 @@
 
                                     <li><a href="#">Installation</a>
                                         <ul class="dropdown" style="width:270px;">
-                                            <li><a href="{{ url(FRONTENDURL.'installation/products/wallcladding') }}">Wall Cladding</a></li>
-                                            <li><a href="{{ url(FRONTENDURL.'installation/products/floorcladding')}}">Floor Cladding</a></li>
-                                            <li><a href="{{ url(FRONTENDURL.'installation/products/constructionbyspecification')}}">Construction By Specification</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'wallcladding/pageview') }}">Wall Cladding</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'floorcladding/pageview')}}">Floor Cladding</a></li>
+                                            <li><a href="{{ url(FRONTENDURL.'constructionbyspecification/pageview')}}">Construction By Specification</a></li>
                                         </ul>
                                     </li>
 

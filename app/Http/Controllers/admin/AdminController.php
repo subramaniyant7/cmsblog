@@ -384,7 +384,7 @@ class AdminController extends Controller
         $formData =  $req->except(['_token', 'clients_gallery_id', 'clients_gallery_images_name', 'clients_gallery_videos_name']);
 
         if (
-            $formData['clients_gallery_client'] == '' || $formData['clients_gallery_category'] == '' || $formData['clients_gallery_date'] == '' ||
+            $formData['clients_gallery_client'] == '' || $formData['clients_gallery_category'] == '' || 
             $formData['clients_gallery_location'] == '' || $formData['clients_gallery_budget'] == '' || $formData['clients_gallery_description'] == '' ||
             $req->input('clients_gallery_videos_name')[0] == ''
         ) {
@@ -402,6 +402,8 @@ class AdminController extends Controller
         if (!array_key_exists('clients_gallery_subcategory', $req->input()) || $formData['clients_gallery_category'] != 1) {
             $formData['clients_gallery_subcategory'] = json_encode([]);
         }
+
+        $formData['clients_gallery_date'] = date('YYYY-MM-DD');
 
         if ($req->input('clients_gallery_id') == '') {
             if (!$req->hasFile('clients_gallery_images_name')) {

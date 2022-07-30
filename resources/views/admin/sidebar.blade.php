@@ -211,19 +211,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ ADMINURL . '/actionproductpageinfo?type=' . encryption(pageName()['wallclad']) . '&&page=' . encryption(pageName()['install']) }}" class="nav-link {{ request()->type && decryption(request()->type) == pageName()['wallclad'] ? 'active' : '' }}">
+                            <a href="{{ ADMINURL . '/actionpageinfo?type=' . encryption(pageName()['wallclad']) . '&&page=' . encryption(pageName()['install']) }}" class="nav-link {{ request()->type && decryption(request()->type) == pageName()['wallclad'] ? 'active' : '' }}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Wall Cladding</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL . '/actionproductpageinfo?type=' . encryption(pageName()['floorclad']) . '&&page=' . encryption(pageName()['install']) }}" class="nav-link {{ request()->type && decryption(request()->type) == pageName()['floorclad'] ? 'active' : '' }}">
+                            <a href="{{ ADMINURL . '/actionpageinfo?type=' . encryption(pageName()['floorclad']) . '&&page=' . encryption(pageName()['install']) }}" class="nav-link {{ request()->type && decryption(request()->type) == pageName()['floorclad'] ? 'active' : '' }}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Floor Cladding</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ ADMINURL . '/actionproductpageinfo?type=' . encryption(pageName()['construction']) . '&&page=' . encryption(pageName()['install']) }}" class="nav-link {{ request()->type && decryption(request()->type) == pageName()['construction'] ? 'active' : '' }}">
+                            <a href="{{ ADMINURL . '/actionpageinfo?type=' . encryption(pageName()['construction']) . '&&page=' . encryption(pageName()['install']) }}" class="nav-link {{ request()->type && decryption(request()->type) == pageName()['construction'] ? 'active' : '' }}">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p>Construction by Specification</p>
                             </a>

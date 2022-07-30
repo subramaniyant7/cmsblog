@@ -47,8 +47,8 @@ class FHelperController extends Controller
         $data =  DB::table("category_details")
             ->join('client_details', 'category_details.category_id', '=', 'client_details.client_category')
             ->join('clients_gallery', 'category_details.category_id', '=', 'clients_gallery.clients_gallery_category')
-            ->select('category_details.*','client_details.*','clients_gallery.*')
-            ->where([['category_details.status',1],['client_details.status',1],['clients_gallery.status',1]]);
+            ->select('category_details.*', 'client_details.*', 'clients_gallery.*')
+            ->where([['category_details.status', 1], ['client_details.status', 1], ['clients_gallery.status', 1]]);
         return $data->groupBy(['category_details.category_id'])->get();
     }
 
@@ -58,7 +58,7 @@ class FHelperController extends Controller
             ->join('clients_gallery', 'client_details.client_id', '=', 'clients_gallery.clients_gallery_client')
             ->join('category_details', 'client_details.client_category', '=', 'category_details.category_id')
             ->select('client_details.*')
-            ->where([['client_details.status',1],['clients_gallery.status',1],['category_details.status',1]]);
+            ->where([['client_details.status', 1], ['clients_gallery.status', 1], ['category_details.status', 1]]);
         return $data->get();
     }
 
@@ -71,4 +71,17 @@ class FHelperController extends Controller
         return $data->inRandomOrder()->take(2)->get();
     }
 
+    static function getDocCategory()
+    {
+        $data =  DB::table("doc_category")
+            ->join('documents', 'doc_category.doc_category_id', '=', 'documents.document_category')
+            ->select('doc_category.*')
+            ->where('doc_category.status', 1);
+        return $data->get();
+    }
+
+    static function getCategoryDocument($categoryId)
+    {
+       return DB::table("documents")->where('document_category', $categoryId)->get();
+    }
 }

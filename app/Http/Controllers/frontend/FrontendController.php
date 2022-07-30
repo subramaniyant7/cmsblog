@@ -11,24 +11,26 @@ use Mail;
 class FrontendController extends Controller
 {
 
-    public function Home(){
+    public function Home()
+    {
         $pageContent = HelperController::getPageByName('home');
         $feature = HelperController::getFeature();
         // echo '<pre>';
         // print_r($pageContent);
         // exit;
         if (!count($pageContent)) return view('frontend.404');
-        return view('frontend.home', compact('pageContent','feature'));
+        return view('frontend.home', compact('pageContent', 'feature'));
     }
 
-    public function SendTestEmail(){
+    public function SendTestEmail()
+    {
         Mail::send([], [], function ($message) {
             $message->to('tsubramaniyan2@gmail.com', 'Test')->subject('Test Email');
             $message->from(getenv('MAIL_USERNAME'), 'admin');
             $message->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
-          });
+        });
 
-          echo 'Email Sent';
+        echo 'Email Sent';
     }
 
 
@@ -41,21 +43,39 @@ class FrontendController extends Controller
     public function ContactUs()
     {
         $socialMedia = HelperController::getSocialMedia();
-        return view('frontend.contactus',compact('socialMedia'));
+        return view('frontend.contactus', compact('socialMedia'));
     }
 
-    
-
-    public function SubmitContact(Request $req){
+    public function SubmitContact(Request $req)
+    {
         $formData = $req->except('_token');
-        if($formData['name'] == '' || $formData['email'] == '' || $formData['number'] == '' || $formData['message'] == '') return back()->with('error','Please enter mandatory fields');
-        return back()->with('success','Thank you for contacting GoHealthe. We will reach you soon');
+        if ($formData['name'] == '' || $formData['email'] == '' || $formData['number'] == '' || $formData['message'] == '') return back()->with('error', 'Please enter mandatory fields');
+        try {
+            $emailContent = ['email' => $formData['email'], 'name' => $formData['name'], 'number' => $formData['number'], 'info' => trim($formData['message'])];
+            Mail::send('frontend.email.enquiry', $emailContent, function ($message) {
+                $message->to('admin@gohealthe.com', 'Website Enquiry')->subject('Website Enquiry');
+                $message->from(getenv('MAIL_USERNAME'), 'Admin');
+            });
+        } catch (\Exception $e) {
+            return back()->with('error', 'Something went wrong. Please try again');
+        }
+        return back()->with('success', 'Thank you for contacting GoHealthe. We will reach you soon');
     }
 
-    public function Enquiry(Request $req){
+    public function Enquiry(Request $req)
+    {
         $formData = $req->except('_token');
-        if($formData['name'] == '' || $formData['email'] == '' || $formData['number'] == '' || $formData['message'] == '') return back()->with('error','Please enter mandatory fields');
-        return back()->with('success','Enquired Submitted');
+        if ($formData['name'] == '' || $formData['email'] == '' || $formData['number'] == '' || $formData['message'] == '') return back()->with('error', 'Please enter mandatory fields');
+        try {
+            $emailContent = ['email' => $formData['email'], 'name' => $formData['name'], 'number' => $formData['number'], 'info' => trim($formData['message'])];
+            Mail::send('frontend.email.enquiry', $emailContent, function ($message){
+                $message->to('admin@gohealthe.com', 'Website Enquiry')->subject('Website Enquiry');
+                $message->from(getenv('MAIL_USERNAME'), 'Admin');
+            });
+        } catch (\Exception $e) {
+            return back()->with('error', 'Something went wrong. Please try again');
+        }
+        return back()->with('success', 'Enquired Submitted');
     }
 
 
@@ -64,8 +84,16 @@ class FrontendController extends Controller
         return view('frontend.faq');
     }
 
-    public function Downloads(){
-        return view('frontend.downloads');
+    public function Downloads()
+    {
+        $docCategory = FHelperController::getDocCategory();
+        return view('frontend.doccategory', compact('docCategory'));
+    }
+
+    public function ViewDocuments($id)
+    {
+        $docCategory = FHelperController::getCategoryDocument(decrypt($id));
+        return view('frontend.doccategoryfile', compact('docCategory'));
     }
 
     public function Gallery()
@@ -75,7 +103,7 @@ class FrontendController extends Controller
         // echo '<pre>';
         // print_r($categories);
         // exit;
-        if(!count($categories) || !count($clients)) return view('frontend.404');
+        if (!count($categories) || !count($clients)) return view('frontend.404');
         return view('frontend.gallery', compact('clients', 'categories'));
     }
 
@@ -134,7 +162,4 @@ class FrontendController extends Controller
         if (!count($pageContent)) return view('frontend.404');
         return view('frontend.pagetype', compact('pageContent'));
     }
-
-
-    
 }
