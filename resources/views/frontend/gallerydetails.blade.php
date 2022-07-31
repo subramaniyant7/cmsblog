@@ -43,7 +43,7 @@
                             <h3 class="title">Related Projects</h3>
                             <div class="row">
                                 @foreach ($relatedProjects as $project)
-                                <div class="col-lg-6 col-md-12">
+                                <div class="col-lg-4 col-md-4">
                                     <div class="single-portfolio">
                                         <figure>
                                             <a href="{{ url('gallerydetails/'.encryption($project->client_id)) }}">
