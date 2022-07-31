@@ -96,7 +96,7 @@ class FrontendController extends Controller
     public function ViewDocuments($id)
     {
         $docCategory = FHelperController::getCategoryDocument(decrypt($id));
-        return view('frontend.doccategoryfile', compact('docCategory'));
+        return view('frontend.downloadlist', compact('docCategory'));
     }
 
     public function Gallery()

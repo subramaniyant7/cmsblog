@@ -73,11 +73,12 @@ class FHelperController extends Controller
 
     static function getDocCategory()
     {
+        DB::statement("SET SQL_MODE=''");
         $data =  DB::table("doc_category")
             ->join('documents', 'doc_category.doc_category_id', '=', 'documents.document_category')
             ->select('doc_category.*')
             ->where('doc_category.status', 1);
-        return $data->get();
+        return $data->groupBy('doc_category.doc_category_id')->get();
     }
 
     static function getCategoryDocument($categoryId)
