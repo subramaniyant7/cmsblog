@@ -110,8 +110,8 @@
            </div>
        </div>
 
-{{--       <script src="https://apps.elfsight.com/p/platform.js" defer></script>--}}
-{{--       <div class="elfsight-app-791fea70-559f-4912-8fa1-48546bbf15e3"></div>--}}
+       <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+       <div class="elfsight-app-791fea70-559f-4912-8fa1-48546bbf15e3"></div>
    </footer>
    <!-- End Footer Area -->
 
