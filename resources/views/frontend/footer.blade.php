@@ -65,7 +65,7 @@
                            <li><a href="{{url(FRONTENDURL.'bioclad/products/antimicrobialwallcladding')}}">Antimicrobial Wall Cladding</a></li>
                            <li><a href="{{url(FRONTENDURL.'bioclad/products/wallprotection')}}">Wall Protection</a></li>
                            <li><a href="{{url(FRONTENDURL.'bioclad/products/safetyflooring')}}">Safety Flooring</a></li>
-                           <li><a href="{{url(FRONTENDURL.'bioclad/products/doorsets')}}">Doorsets</a></li>
+                           <li><a href="{{url(FRONTENDURL.'bioclad/products/doorsets')}}">Bio Doors</a></li>
                            <li><a href="{{url(FRONTENDURL.'bioclad/products/hygenicwallcladding')}}">Hygienic Wall Cladding</a></li>
                            <li><a href="{{url(FRONTENDURL.'bioclad/products/ips')}}">IPS</a></li>
                            <li><a href="{{url(FRONTENDURL.'printclad/products/photoclad')}}">PhotoClad</a></li>

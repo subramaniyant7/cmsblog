@@ -36,8 +36,8 @@
                             @endforeach
                         </div>
 
-                      
-                        
+
+
                         @if(count($relatedProjects))
                         <div class="related-project">
                             <h3 class="title">Related Projects</h3>
@@ -51,15 +51,15 @@
                                                 <span class="list-overlay"></span>
                                             </a>
                                         </figure>
-                                        <div class="portfolio-content">
-                                            <h4><a href="{{ url('gallerydetails/'.encryption($project->client_id)) }}">{{ $project->client_name }}</a></h4>
-                                        </div>
+{{--                                        <div class="portfolio-content">--}}
+{{--                                            <h4><a href="{{ url('gallerydetails/'.encryption($project->client_id)) }}">{{ $project->client_name }}</a></h4>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                                 @endforeach
-                               
 
-                             
+
+
 
                             </div>
                         </div>
@@ -83,15 +83,15 @@
 
                         <br><br>
                         @foreach ($galleryAsset['images'] as $k => $assetImage)
-                            @if($k == 3) 
-                                @break; 
+                            @if($k == 3)
+                                @break;
                             @endif
                             <a href="javascript:void(0)" rel="prettyPhoto[gallery1]">
                                 <img src="{{ URL::asset('uploads/clients/gallery/'.$assetImage->clients_gallery_images_name) }}">
                             </a>
                             <br><br><br>
                         @endforeach
-                      
+
                     </div>
                 </div>
             </div>

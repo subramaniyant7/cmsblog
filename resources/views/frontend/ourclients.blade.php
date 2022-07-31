@@ -10,16 +10,23 @@
             <div class="section-title">
                 <h3>Our Clients</h3>
             </div>
-            <div class="partner-slider">
-                @foreach (getActiveRecord('client_details') as $client)
-                <div class="col-lg-12 col-md-12">
-                    <div class="item">
-                        <a href="#">
-                            <img src="{{ URL::asset('uploads/clients/'.$client->client_logo) }}" alt="Our Clients">
-                        </a>
+            <div class="partner-slider1" style="display: contents">
+
+                @forelse (getActiveRecord('client_details') as $client)
+                    <div class="col-lg-2 col-md-2 category-{{ $client->client_id }}">
+
+                            <figure>
+                                <a href="#">
+                                    <img src="{{ URL::asset('uploads/clients/'.$client->client_logo) }}" alt="portfolio-img">
+                                </a>
+                            </figure>
+
                     </div>
-                </div>
-                @endforeach
+                @empty
+
+                @endforelse
+
+
             </div>
         </div>
     </div>
