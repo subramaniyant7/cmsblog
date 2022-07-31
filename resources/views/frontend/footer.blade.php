@@ -103,15 +103,15 @@
                            - <a href="{{url(FRONTENDURL.'termsconditions/pageview')}}">Terms & Conditions</a>
                             - <a href="{{ url(FRONTENDURL.'faq/pageview') }}">FAQ</a>
                             - <a href="{{url(FRONTENDURL.'contactus')}}">Contact Us</a>
-                            - <a href="#">Sitemap</a>
+                            - <a href="{{url(FRONTENDURL.'sitemap.xml')}}">Sitemap</a>
                        </p>
                    </div>
                </div>
            </div>
        </div>
 
-       <script src="https://apps.elfsight.com/p/platform.js" defer></script>
-       <div class="elfsight-app-791fea70-559f-4912-8fa1-48546bbf15e3"></div>
+{{--       <script src="https://apps.elfsight.com/p/platform.js" defer></script>--}}
+{{--       <div class="elfsight-app-791fea70-559f-4912-8fa1-48546bbf15e3"></div>--}}
    </footer>
    <!-- End Footer Area -->
 
